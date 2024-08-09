@@ -35,6 +35,7 @@ This notebook focuses on a simple classification, but we apply 4 different targe
 This notebook focuses on an interface between the ML part given in the multiple_simple_model_depression.ipynb file and the GUI-interface. The file: models.pkl has to be loaded, here are stored all the 4 models of the multiple simple classification with the 4 different targets and the related features, that could be used as a first multiple predictve tool. 
 
 More detailed models (Detailed EDA and detailed models with Gridsearch)
+
 5. **eda_model_depression.ipynb**: 
 This notebook focuses on a complex classification of the depressiveness with all columns (features) and could be used as an improved predictve tool. It is done with RandomForest and gridsearch to improve the classification. We also reduced the columns to get a more practical modell.
 
