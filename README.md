@@ -37,7 +37,10 @@ This notebook focuses on an interface between the ML part given in the multiple_
 More detailed models (Detailed EDA and detailed models with Gridsearch)
 
 5. **eda_model_depression.ipynb**: 
-This notebook focuses on a complex classification of the depressiveness with all columns (features) and could be used as an improved predictve tool. It is done with RandomForest and gridsearch to improve the classification. We also reduced the columns to get a more practical modell.
+This notebook focuses on a complex classification of the depressiveness with all columns (features) and could be used as an improved predictve tool for the target: "depressiveness". It is done with RandomForest and gridsearch to improve the classification. We result in a prediction model of the best 10 feature-columns.
+
+6. **interface_eda_model_depression_ML_GUI.ipynb**: 
+This notebook focuses on an interface between the ML part given in the eda_model_depression.ipynb file and the GUI-interface. The file: model_depression.pkl has to be loaded, here are stored all the best model with the target "depressiveness" and we also gave the target and the names of the features, that could be used as a first multiple predictve tool. 
 
 
 ## Installation and Setup
