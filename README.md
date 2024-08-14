@@ -43,6 +43,12 @@ This notebook focuses on a complex classification of the depressiveness with all
 This notebook focuses on an interface between the ML part given in the eda_model_depression.ipynb file and the GUI-interface. The file: model_depression.pkl has to be loaded, here are stored all the best model with the target "depressiveness" and we also gave the target and the names of the features, that could be used as a first multiple predictve tool. 
 
 
+5. **method_model_depression.ipynb**: 
+This notebook focuses on all possible models, e.g., decision tree, KNN, logistic regression, random forest, which are tested, we apply the results of the EDA in previous notebooks and concentrate on the important features. We could derive and optimal model, which is stored in best_model_depression.pkl, this can be used for the interface GUI or for the notebook interface_eda_model_depression_ML_GUI.ipynb.
+
+
+
+
 ## Installation and Setup
 
 To set up the project locally, follow these steps:
