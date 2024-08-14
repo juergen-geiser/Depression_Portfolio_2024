@@ -1,5 +1,0 @@
-school_year,age,gender,bmi,who_bmi,phq_score,depression_severity,depressiveness,suicidal,depression_diagnosis,depression_treatment,gad_score,anxiety_severity,anxiousness,anxiety_diagnosis,anxiety_treatment,epworth_score,sleepiness
-1,19,1,33.33333333,Class I Obesity,9,Mild,0,0,0,0,11,Moderate,1,0,0,7,0
-1,18,1,19.84126984,Normal,8,Mild,0,0,0,0,5,Mild,0,0,0,14,1
-2,19,0,25.10239133,Overweight,8,Mild,0,0,0,0,6,Mild,0,0,0,6,0
-1,18,0,23.73866213,Normal,19,Moderately severe,1,1,0,0,15,Severe,1,0,0,11,1
