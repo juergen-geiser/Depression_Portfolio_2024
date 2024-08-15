@@ -134,6 +134,10 @@ class Ui_layer_2(object):
         self.comboBox_2_3.setObjectName("comboBox_2_3")
         self.gridLayout.addWidget(self.comboBox_2_3, 3, 3, 1, 1)
         
+        #filling the box
+        gad_score_dropdown_items = [str(i) for i in range(0,21)]
+        self.comboBox_2_1.addItems(gad_score_dropdown_items)
+        
         
         #input depressiveness_diagnosis
         self.label_3_2 = QtWidgets.QLabel(self.layoutWidget)
