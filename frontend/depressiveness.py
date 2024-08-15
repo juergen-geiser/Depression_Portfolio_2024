@@ -81,7 +81,7 @@ class Ui_layer_2(object):
         
         #filling the box
         weight_dropdown_items = [str(i) for i in range(40,251)]
-        self.comboBox_2_1.addItems(weight_dropdown_items)
+        self.comboBox_3_1.addItems(weight_dropdown_items)
         
         #input epworth_score
         self.label_4_0 = QtWidgets.QLabel(self.layoutWidget)
@@ -95,8 +95,8 @@ class Ui_layer_2(object):
         self.gridLayout.addWidget(self.comboBox_4_1, 5, 1, 1, 1)
         
         #filling the box
-        epworth_score_dropdown_items = [str(i) for i in np.arange(0,32.1,0.1)]
-        self.comboBox_2_1.addItems(epworth_score_dropdown_items)
+        epworth_score_dropdown_items = [f"{i:.1f}" for i in np.arange(0,32.1,0.1)]
+        self.comboBox_4_1.addItems(epworth_score_dropdown_items)
         
         
         #input anxiety_diagnosis       
@@ -110,6 +110,10 @@ class Ui_layer_2(object):
         self.comboBox_0_3.setObjectName("comboBox_0_3")
         self.gridLayout.addWidget(self.comboBox_0_3, 0, 3, 1, 1)
         
+        #filling the box with items
+        anxiety_diagnosis_dropdown_items = ["no", "yes"]
+        self.comboBox_0_3.addItems(anxiety_diagnosis_dropdown_items)
+        
         
         #input anxiety_treatment
         self.label_1_2 = QtWidgets.QLabel(self.layoutWidget)
@@ -121,6 +125,10 @@ class Ui_layer_2(object):
         self.comboBox_1_3 = QtWidgets.QComboBox(self.layoutWidget)
         self.comboBox_1_3.setObjectName("comboBox_1_3")
         self.gridLayout.addWidget(self.comboBox_1_3, 2, 3, 1, 1)
+        
+        #filling the box with items
+        anxiety_treatment_dropdown_items = ["no", "yes"]
+        self.comboBox_1_3.addItems(anxiety_treatment_dropdown_items)
         
         
         #input gad_score
@@ -136,7 +144,7 @@ class Ui_layer_2(object):
         
         #filling the box
         gad_score_dropdown_items = [str(i) for i in range(0,21)]
-        self.comboBox_2_1.addItems(gad_score_dropdown_items)
+        self.comboBox_2_3.addItems(gad_score_dropdown_items)
         
         
         #input depressiveness_diagnosis
@@ -150,6 +158,9 @@ class Ui_layer_2(object):
         self.comboBox_3_3.setObjectName("comboBox_3_3")
         self.gridLayout.addWidget(self.comboBox_3_3, 4, 3, 1, 1)
         
+        #filling the box with items
+        depressiveness_diagnosis_dropdown_items = ["no", "yes"]
+        self.comboBox_3_3.addItems(depressiveness_diagnosis_dropdown_items)
         
         #input depressiveness_treatment
         self.label_4_2 = QtWidgets.QLabel(self.layoutWidget)
@@ -161,6 +172,10 @@ class Ui_layer_2(object):
         self.comboBox_4_3 = QtWidgets.QComboBox(self.layoutWidget)
         self.comboBox_4_3.setObjectName("comboBox_4_3")
         self.gridLayout.addWidget(self.comboBox_4_3, 5, 3, 1, 1)
+        
+        #filling the box with items
+        depressiveness_treatment_dropdown_items = ["no", "yes"]
+        self.comboBox_4_3.addItems(depressiveness_treatment_dropdown_items)
        
        
         #output
