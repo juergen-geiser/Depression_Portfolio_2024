@@ -15,7 +15,7 @@ Goal: The aim of th project was to improve standard models, we also consider a s
 
 - Team Member 1: [Jürgen Geiser](https://github.com/juergen-geiser)  
 - Team Member 2: [Carsten Henkel](https://github.com/CarstenHankel)
-- Team Member 3: [Alex Gafran](https://github.com/a-gafron) 
+- Team Member 3: [Alex Gafron](https://github.com/a-gafron) 
 - Team Member 4: [Marcin Grzymowicz](https://github.com/M-Grzymowicz)
 
 ## Jupyter Notebooks
@@ -30,10 +30,23 @@ This notebook focuses on an interface between the ML part given in the eda_model
 
 
 3. **method_model_depression.ipynb**: 
-This notebook focuses on all possible models, e.g., decision tree, KNN, logistic regression, random forest, which are tested, we apply the results of the EDA in previous notebooks and concentrate on the important features. We could derive and optimal model, which is stored in best_model_depression.pkl, this can be used for the interface GUI or for the notebook interface_eda_model_depression_ML_GUI.ipynb.
+This notebook focuses on all possible models, e.g., decision tree, KNN, logistic regression, random forest, which are tested, we apply the results of the EDA in previous notebooks and concentrate on the important features. We could derive and optimal model, which is stored in best_model_depression.pkl, this can be used for the interface GUI or for the notebook interface_method_model_depression_ML_GUI.ipynb.
 
 4. **interface_method_model_depression_ML_GUI.ipynb**: 
 This notebook focuses on an interface between the ML part given in the method_model_depression.ipynb file and the GUI-interface. The file: best_model_depression.pkl has to be loaded, here are stored all the best model with the target "depressiveness" and we also gave the target and the names of the features, that could be used as a first multiple predictve tool. 
+
+5. **method_model_anxiousness.ipynb**: 
+This notebook focuses on all possible models, e.g., decision tree, KNN, logistic regression, random forest, which are tested, we apply the results of the EDA in previous notebooks and with the help of the PowerBI. We concentrate on the important features. We could derive and optimal model, which is stored in best_model_anxiousness.pkl, this can be used for the interface GUI or for the notebook interface_method_model_anxiousness_ML_GUI.ipynb.
+
+6. **interface_method_model_anxiousness_ML_GUI.ipynb**: 
+This notebook focuses on an interface between the ML part given in the method_model_anxiousness.ipynb file and the GUI-interface. The file: best_model_anxiousness.pkl has to be loaded, here are stored all the best model with the target "depressiveness" and we also gave the target and the names of the features, that could be used as a first multiple predictve tool. 
+
+
+
+
+
+
+
 
 
 ## Installation and Setup
