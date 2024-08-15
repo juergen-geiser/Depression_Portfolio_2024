@@ -153,9 +153,9 @@ class Ui_layer_2(object):
         self.outputField.setStyleSheet("background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(202, 202, 202, 255), stop:1 rgba(255, 255, 255, 255));\n"
                                        "border-radius: 10.0px;\n"
                                        "")
-        
         self.outputField.setObjectName("outputField")
         
+        #headline 
         self.headlineDepressiveness = QtWidgets.QLabel(layer_2)
         self.headlineDepressiveness.setGeometry(QtCore.QRect(90, 10, 571, 41))
         self.headlineDepressiveness.setStyleSheet("color:rgb(255, 255, 255);\n"
@@ -168,6 +168,8 @@ class Ui_layer_2(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         
+        #buttons
+        #predict
         self.pushButton_predict = QtWidgets.QPushButton(self.frame)
         self.pushButton_predict.setGeometry(QtCore.QRect(90, 30, 141, 41))
         self.pushButton_predict.setStyleSheet("background-color:rgb(223, 223, 223);\n"
@@ -177,6 +179,7 @@ class Ui_layer_2(object):
                                               "")        
         self.pushButton_predict.setObjectName("pushButton_predict")
         
+        #home- back to welcome page
         self.ButtonToWelcome = QtWidgets.QPushButton(self.frame)
         self.ButtonToWelcome.setGeometry(QtCore.QRect(370, 30, 191, 41))
         self.ButtonToWelcome.setStyleSheet("background-color:rgb(223, 223, 223);\n"
