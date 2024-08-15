@@ -1,4 +1,4 @@
-# Depression_Portfolo_2024
+# Depression_Portfolio_2024
 Project: Detection of Depression with Machine Learning and Power-BI-Tools
 
 ### Project Overview
@@ -14,9 +14,9 @@ Goal: The aim of th project was to improve standard models, we also consider a s
 ## Team Members
 
 - Team Member 1: [Jürgen Geiser](https://github.com/juergen-geiser)  
-- Team Member 2: [Carsten Henkel](https://github.com/xxx)
+- Team Member 2: [Carsten Henkel](https://github.com/CarstenHankel)
 - Team Member 3: [Alex Gafran](https://github.com/a-gafron) 
-- Team Member 4: [Marcin Grzymowicz](https://github.com/xxx)
+- Team Member 4: [Marcin Grzymowicz](https://github.com/M-Grzymowicz)
 
 ## Jupyter Notebooks
 
