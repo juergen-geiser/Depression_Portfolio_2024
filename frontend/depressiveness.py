@@ -62,6 +62,7 @@ class Ui_layer_2(object):
         self.label_2_0 = QtWidgets.QLabel(self.layoutWidget)
         self.label_2_0.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
         self.label_2_0.setObjectName("label_2_0")
+        self.label_2_0.setText("height in cm")
         self.gridLayout.addWidget(self.label_2_0, 3, 0, 1, 1)
         
         self.comboBox_2_1 = QtWidgets.QComboBox(self.layoutWidget)
@@ -72,6 +73,7 @@ class Ui_layer_2(object):
         self.label_3_0 = QtWidgets.QLabel(self.layoutWidget)
         self.label_3_0.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
         self.label_3_0.setObjectName("label_3_0")
+        self.label_3_0.setText("weight in kg")
         self.gridLayout.addWidget(self.label_3_0, 4, 0, 1, 1)
                
         self.comboBox_3_1 = QtWidgets.QComboBox(self.layoutWidget)
@@ -82,6 +84,7 @@ class Ui_layer_2(object):
         self.label_4_0 = QtWidgets.QLabel(self.layoutWidget)
         self.label_4_0.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
         self.label_4_0.setObjectName("label_4_0")
+        self.label_4_0.setText("epworth_score")
         self.gridLayout.addWidget(self.label_4_0, 5, 0, 1, 1)
         
         self.comboBox_4_1 = QtWidgets.QComboBox(self.layoutWidget)
@@ -92,6 +95,7 @@ class Ui_layer_2(object):
         self.label_0_2 = QtWidgets.QLabel(self.layoutWidget)
         self.label_0_2.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
         self.label_0_2.setObjectName("label_0_2")
+        self.label_0_2.setText("anxiety_diagnosis")
         self.gridLayout.addWidget(self.label_0_2, 0, 2, 1, 1)
         
         self.comboBox_0_3 = QtWidgets.QComboBox(self.layoutWidget)
@@ -102,6 +106,7 @@ class Ui_layer_2(object):
         self.label_1_2 = QtWidgets.QLabel(self.layoutWidget)
         self.label_1_2.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
         self.label_1_2.setObjectName("label_1_2")
+        self.label_1_2.setText("anxiety_treatment")
         self.gridLayout.addWidget(self.label_1_2, 2, 2, 1, 1)
         
         self.comboBox_1_3 = QtWidgets.QComboBox(self.layoutWidget)
@@ -112,6 +117,7 @@ class Ui_layer_2(object):
         self.label_2_2 = QtWidgets.QLabel(self.layoutWidget)
         self.label_2_2.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
         self.label_2_2.setObjectName("label_2_2")
+        self.label_2_2.setText("gad_score")
         self.gridLayout.addWidget(self.label_2_2, 3, 2, 1, 1)
         
         self.comboBox_2_3 = QtWidgets.QComboBox(self.layoutWidget)
@@ -122,16 +128,18 @@ class Ui_layer_2(object):
         self.label_3_2 = QtWidgets.QLabel(self.layoutWidget)
         self.label_3_2.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
         self.label_3_2.setObjectName("label_3_2")
+        self.label_3_2.setText("depressiveness_diagnosis")
         self.gridLayout.addWidget(self.label_3_2, 4, 2, 1, 1)
         
         self.comboBox_3_3 = QtWidgets.QComboBox(self.layoutWidget)
         self.comboBox_3_3.setObjectName("comboBox_3_3")
         self.gridLayout.addWidget(self.comboBox_3_3, 4, 3, 1, 1)
         
-        #input derpressiveness_treatment
+        #input depressiveness_treatment
         self.label_4_2 = QtWidgets.QLabel(self.layoutWidget)
         self.label_4_2.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
         self.label_4_2.setObjectName("label_4_2")
+        self.label_4_2.setText("depressiveness_treatment")
         self.gridLayout.addWidget(self.label_4_2, 5, 2, 1, 1)
         
         self.comboBox_4_3 = QtWidgets.QComboBox(self.layoutWidget)
@@ -184,22 +192,7 @@ class Ui_layer_2(object):
         _translate = QtCore.QCoreApplication.translate
         
         layer_2.setWindowTitle(_translate("layer_2", "Form"))
-        
-        self.label_0_2.setText(_translate("layer_2", "anxiety_diagnosis"))
-
-        self.label_2_0.setText(_translate("layer_2", "height"))
-
-        
-        self.label_3_0.setText(_translate("layer_2", "weight"))
-        
-        self.label_1_2.setText(_translate("layer_2", "anxiety_treatment"))
                 
-        self.label_0_0.setText(_translate("layer_2", " age"))
-        self.label_4_0.setText(_translate("layer_2", "epworth_score"))
-        self.label_4_2.setText(_translate("layer_2", "depressiveness_treatment "))
-        self.label_2_2.setText(_translate("layer_2", " gad_score "))
-        self.label_3_2.setText(_translate("layer_2", "depressiveness_diagnosis"))
-        
         self.outputField.setHtml(_translate("layer_2", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/EC-html40/strict.dtd\">\n""<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
                                             "p, li { white-space: pre-wrap; }\n"
                                             "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
