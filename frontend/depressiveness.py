@@ -33,6 +33,7 @@ class Ui_layer_2(object):
         self.label_0_0 = QtWidgets.QLabel(self.layoutWidget)
         self.label_0_0.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
         self.label_0_0.setObjectName("label_0_0")
+        self.label_0_0.setText("age")
         self.gridLayout.addWidget(self.label_0_0, 0, 0, 1, 1)
         
         self.comboBox_0_1 = QtWidgets.QComboBox(self.layoutWidget)
