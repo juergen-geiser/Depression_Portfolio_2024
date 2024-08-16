@@ -1,12 +1,11 @@
 import sys
 import pickle
 import pandas as pd
-from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPushButton, QTextEdit, QDialog, QWidget
-from welcome import Ui_layer_1
-from depressiveness import Ui_layer_2
+from layer_welcome import Ui_layer_1
+from layer_depressiveness import Ui_layer_2
 
 class WelcomeScreen(QDialog):
     def __init__(self):
