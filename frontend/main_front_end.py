@@ -1,8 +1,9 @@
 import sys
-import joblib
-#from PyQt5.uic import loadUi
+import pickle
+import pandas as pd
+from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-#from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPushButton, QTextEdit, QDialog, QWidget
 from welcome import Ui_layer_1
 from depressiveness import Ui_layer_2
@@ -31,7 +32,10 @@ class Depressiveness(QDialog):
         self.ui.pushButton_predict.clicked.connect(self.predict)
         
         # loading the model
-        self.model = joblib.load("./models/best_model_depression.pkl")  
+        with open('./models/best_model_depression.pkl', 'rb') as file:
+            self.model = pickle.load(file)  # Load the models first (as they were saved first)
+            self.target_col = pickle.load(file)   # Load status_names second
+            self.feature_cols = pickle.load(file)    # Load target_cols third
         
     def goToWelcome(self):
         widget.setCurrentIndex(widget.currentIndex() - 1)
@@ -67,7 +71,8 @@ class Depressiveness(QDialog):
     
     def predict(self):
         inputs = self.getInputs()
-        prediction = self.model.predict([inputs])  # predicting
+        X_aim = pd.DataFrame([inputs], columns=self.feature_cols)
+        prediction = self.model.predict(X_aim)  # predicting
         self.ui.outputField.setText(f'Prediction: {prediction[0]}')  # Output 
         
 #main
