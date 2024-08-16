@@ -1,8 +1,8 @@
 import sys
 import joblib
-from PyQt5.uic import loadUi
+#from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import Qt
+#from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPushButton, QTextEdit, QDialog, QWidget
 from welcome import Ui_layer_1
 from depressiveness import Ui_layer_2
