@@ -211,8 +211,8 @@ class Ui_layer_2(object):
                 font: 14pt "MS Shell Dlg 2";
             }
             QPushButton:pressed {
-                background-color: rgb(200, 200, 200); /* Etwas dunkler bei Klick */
-                border: 2px solid rgb(100, 100, 100); /* Dunklerer Rahmen */
+                background-color: rgb(200, 200, 200); /* a bit darker if clicked */
+                border: 2px solid rgb(100, 100, 100); /* a dark frame */
             }
         """)        
         self.pushButton_predict.setObjectName("pushButton_predict")
@@ -228,8 +228,8 @@ class Ui_layer_2(object):
                 font: 14pt "MS Shell Dlg 2";
             }
             QPushButton:pressed {
-                background-color: rgb(200, 200, 200); /* Etwas dunkler bei Klick */
-                border: 2px solid rgb(100, 100, 100); /* Dunklerer Rahmen */
+                background-color: rgb(200, 200, 200); /* a bit darker if clicked */
+                border: 2px solid rgb(100, 100, 100); /* a dark frame */
             }
         """)
         self.ButtonToWelcome.setObjectName("ButtonToWelcome")
