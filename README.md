@@ -49,7 +49,7 @@ This notebook focuses on an interface between the ML part given in the method_mo
 
 
 
-## Installation and Setup
+## Installation and Setup with requirements.txt
 
 To set up the project locally, follow these steps:
 
@@ -65,9 +65,58 @@ cd your-repository
 ```
 pip install -r requirements.txt
 ```
-4. Download the modified dataset and place it in the project directory. The original dataset can be acquired from the link [Kaggle: Depression and anxiety data ](https://www.kaggle.com/datasets/shahzadahmad0402/depression-and-anxiety-data).
+4. Download the modified dataset and place it in the project directory. The original dataset can be acquired from the link [Kaggle: Depression and anxiety data ](https://www.kaggle.com/datasets/shahzadahmad0402/depression-and-anxiety-data) and save it to the Directory: data
 
+
+
+
+
+## Installation and Setup using conda and environment.yml
+
+To set up the project locally, follow these steps:
+
+1. Clone the repository:
+```
+git clone git@github.com:juergen-geiser/Depression_Portfolio_2024.git
+```
+2. Navigate to the project directory:
+```
+cd your-repository
+```
+3. Install the required environment (you will obtain a new environment called: portfolio_2024)
+
+conda env create --file environment.yml
+
+4. Activate your environment (portfolio_2024):
+```
+conda activate portfolio_2024
+
+or use Visual Code and activate your enviroment portfolio_2024
+
+```
+5. Download the modified dataset and place it in the project directory. The original dataset can be acquired from the link [Kaggle: Depression and anxiety data ](https://www.kaggle.com/datasets/shahzadahmad0402/depression-and-anxiety-data) and save it to the Directory: data
 
 **Note:** If any of the above files are missing, the corresponding functionality may not work as expected.
 
-Once the setup is complete, you start the juypter-Notebook and you can make predictions on new data using the data-file: aim_test.csv.
+## Backend: Start of the programs in the folder notebooks/
+
+Backend-programs:
+
+Once the setup is complete, you start the juypter-Notebook and you can make predictions, e.g., on new data using the data-file: aim_test.csv, and you can save you optimal trained model:
+If you apply:
+
+eda_model_depression.ipynb, the model is saved in models/ as: eda_model_depression.pkl
+
+method_model_depression.ipynb, the model is saved in models/ as: best_model_depression.pkl
+
+method_model_anxiousness.ipynb,  the model is saved in models/ as: best_model_anxiousness.pkl
+
+
+## Frontend: Start of the programs in the folder frontend/
+
+Frontend-programs, based on PyQt (GUI), where we applied the backend-results(saved models fpr depressiveness and anxiousness)
+
+Start the main.py in VC or in another Python-editor, be aware, that you switch to the environment: portfolio_2024
+
+Then, you could start with your predictions.
+
