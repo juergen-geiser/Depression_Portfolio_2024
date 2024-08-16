@@ -1,3 +1,8 @@
 /images/
 /data/
 /log/
+
+
+# Keep everything in the frontend folder except __pycache__
+/frontend/*
+!/frontend/__pycache__/
