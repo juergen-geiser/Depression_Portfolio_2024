@@ -25,11 +25,18 @@ class Ui_layer_1(object):
         
         self.ButtonToDepressiveness = QtWidgets.QPushButton(layer_1)
         self.ButtonToDepressiveness.setGeometry(QtCore.QRect(280, 270, 171, 41))
-        self.ButtonToDepressiveness.setStyleSheet("background-color:rgb(223, 223, 223);\n"
-                                                  "color: rgb(54, 54, 54);\n"
-                                                  "border-radius:10.0px;\n"
-                                                  "font: 14pt \"MS Shell Dlg 2\";\n"
-                                                  "")
+        self.ButtonToDepressiveness.setStyleSheet("""
+            QPushButton {
+                background-color: rgb(223, 223, 223);
+                color: rgb(54, 54, 54);
+                border-radius: 10.0px;
+                font: 14pt "MS Shell Dlg 2";
+            }
+            QPushButton:pressed {
+                background-color: rgb(200, 200, 200); /* a bit darker if clicked */
+                border: 2px solid rgb(100, 100, 100); /* a dark frame */
+            }
+        """)
         self.ButtonToDepressiveness.setObjectName("ButtonToDepressiveness")
 
         self.retranslateUi(layer_1)

@@ -203,20 +203,35 @@ class Ui_layer_2(object):
         #predict
         self.pushButton_predict = QtWidgets.QPushButton(self.frame)
         self.pushButton_predict.setGeometry(QtCore.QRect(90, 30, 141, 41))
-        self.pushButton_predict.setStyleSheet("background-color:rgb(223, 223, 223);\n"
-                                              "color: rgb(54, 54, 54);\n"
-                                              "border-radius:10.0px;\n"
-                                              "font: 14pt \"MS Shell Dlg 2\";\n"
-                                              "")        
+        self.pushButton_predict.setStyleSheet("""
+            QPushButton {
+                background-color: rgb(223, 223, 223);
+                color: rgb(54, 54, 54);
+                border-radius: 10.0px;
+                font: 14pt "MS Shell Dlg 2";
+            }
+            QPushButton:pressed {
+                background-color: rgb(200, 200, 200); /* a bit darker if clicked */
+                border: 2px solid rgb(100, 100, 100); /* a dark frame */
+            }
+        """)        
         self.pushButton_predict.setObjectName("pushButton_predict")
         
         #home- back to welcome page
         self.ButtonToWelcome = QtWidgets.QPushButton(self.frame)
         self.ButtonToWelcome.setGeometry(QtCore.QRect(370, 30, 191, 41))
-        self.ButtonToWelcome.setStyleSheet("background-color:rgb(223, 223, 223);\n"
-                                           "color: rgb(54, 54, 54);\n"
-                                           "border-radius:10.0px;\n"
-                                           "font: 14pt \"MS Shell Dlg 2\";")
+        self.ButtonToWelcome.setStyleSheet("""
+            QPushButton {
+                background-color: rgb(223, 223, 223);
+                color: rgb(54, 54, 54);
+                border-radius: 10.0px;
+                font: 14pt "MS Shell Dlg 2";
+            }
+            QPushButton:pressed {
+                background-color: rgb(200, 200, 200); /* a bit darker if clicked */
+                border: 2px solid rgb(100, 100, 100); /* a dark frame */
+            }
+        """)
         self.ButtonToWelcome.setObjectName("ButtonToWelcome")
 
         self.retranslateUi(layer_2)
