@@ -122,7 +122,7 @@ class Anxiety(QDialog):
         self.ui.pushButton_predict.clicked.connect(self.predict)
         
         # loading the model
-        with open('./models/best_model_depression.pkl', 'rb') as file:
+        with open('./models/best_model_anxiousness.pkl', 'rb') as file:
             self.model = pickle.load(file)  # Load the models first (as they were saved first)
             self.target_col = pickle.load(file)   # Load status_names second
             self.feature_cols = pickle.load(file)    # Load target_cols third
@@ -148,24 +148,27 @@ class Anxiety(QDialog):
         # Gender (0 for female, 1 for male)
         inputs.append(0 if self.ui.comboBoxes[1].currentText() == "female" else 1)
         
-        # Calculate BMI using height and weight
-        height = float(self.ui.comboBoxes[2].currentText())
-        weight = float(self.ui.comboBoxes[3].currentText())
-        bmi = weight / ((height / 100) ** 2)
-        inputs.append(bmi)
-        
-        # Epworth score
+        # PHQ score
         inputs.append(float(self.ui.comboBoxes[4].currentText()))
         
-        # GAD score
-        inputs.append(float(self.ui.comboBoxes[7].currentText()))
+        # Epworth score
+        inputs.append(float(self.ui.comboBoxes[5].currentText()))
         
+        # Suicidal
+        inputs.append(1 if self.ui.comboBoxes[6].currentText() == "yes" else 0)
+        
+        # Calculate BMI using height and weight
+        height = float(self.ui.comboBoxes[9].currentText())
+        weight = float(self.ui.comboBoxes[10].currentText())
+        bmi = weight / ((height / 100) ** 2)
+        inputs.append(bmi)
+                
         # Depressiveness awareness (1 if either diagnosis or treatment is "yes")
-        depressiveness_awareness = (1 if self.ui.comboBoxes[8].currentText() == "yes" or self.ui.comboBoxes[9].currentText() == "yes" else 0)
+        depressiveness_awareness = (1 if self.ui.comboBoxes[2].currentText() == "yes" or self.ui.comboBoxes[3].currentText() == "yes" else 0)
         inputs.append(depressiveness_awareness)
         
         # Anxiety awareness (1 if either diagnosis or treatment is "yes")
-        anxiety_awareness = (1 if self.ui.comboBoxes[5].currentText() == "yes" or self.ui.comboBoxes[6].currentText() == "yes" else 0)
+        anxiety_awareness = (1 if self.ui.comboBoxes[7].currentText() == "yes" or self.ui.comboBoxes[8].currentText() == "yes" else 0)
         inputs.append(anxiety_awareness)
                 
         return inputs
