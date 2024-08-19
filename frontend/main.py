@@ -1,194 +1,75 @@
 import sys
-import pickle
-import pandas as pd
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPushButton, QTextEdit, QDialog, QWidget
-from layer_welcome import Ui_layer_1
-from layer_depressiveness import Ui_layer_2
-from layer_anxiety import Ui_layer_3
+from layer_welcome import Ui_WelcomeScreen
+from layer_depressiveness import Ui_DepressivenessScreen
+from layer_anxiety import Ui_AnxietyScreen
 
-class WelcomeScreen(QDialog):
+class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
-        """
-        Initialize the WelcomeScreen with the UI from layer_welcome and connect the button to transition to Depressiveness screen.
-        """
-        super(WelcomeScreen, self).__init__()
-        self.ui = Ui_layer_1()
-        self.ui.setupUi(self)
-        self.ui.ButtonToDepressiveness.clicked.connect(self.goToDepressiveness)
-        self.ui.ButtonToAnxiety.clicked.connect(self.goToAnxiety)
+        super().__init__()
+        self.stacked_widget = QtWidgets.QStackedWidget()
+        self.setCentralWidget(self.stacked_widget)
         
-    def goToDepressiveness(self):
-        """
-        Transition to the Depressiveness screen.
-        """
-        depressive = Depressiveness()
-        widget.addWidget(depressive)
-        widget.setCurrentIndex(widget.currentIndex() +1)
-
-    def goToAnxiety(self):
-        """
-        Transition to the Anxiety screen.
-        """
-        anxious = Anxiety()
-        widget.addWidget(anxious)
-        widget.setCurrentIndex(widget.currentIndex() +2)
-
-class Depressiveness(QDialog):
-    def __init__(self):
-        """
-        Initialize the Depressiveness screen with the UI from layer_depressiveness.
-        Load the model and its required feature columns and target columns.
-        """
-        super(Depressiveness, self).__init__()
-        self.ui = Ui_layer_2()
-        self.ui.setupUi(self)
+        # Initialize screens
+        self.welcome_screen = QtWidgets.QWidget()
+        self.depressiveness_screen = QtWidgets.QWidget()
+        self.anxiety_screen = QtWidgets.QWidget()
         
-        #linking the buttons
-        self.ui.ButtonToWelcome.clicked.connect(self.goToWelcome)
-        self.ui.pushButton_predict.clicked.connect(self.predict)
+        self.setup_welcome_screen()
+        self.setup_depressiveness_screen()
+        self.setup_anxiety_screen()
         
-        # loading the model
-        with open('./models/best_model_depression.pkl', 'rb') as file:
-            self.model = pickle.load(file)  # Load the models first (as they were saved first)
-            self.target_col = pickle.load(file)   # Load status_names second
-            self.feature_cols = pickle.load(file)    # Load target_cols third
+        # Setup stacked widget
+        self.stacked_widget.addWidget(self.welcome_screen)
+        self.stacked_widget.addWidget(self.depressiveness_screen)
+        self.stacked_widget.addWidget(self.anxiety_screen)
         
-    def goToWelcome(self):
-        """
-        Transition back to the Welcome screen.
-        """
-        widget.setCurrentIndex(widget.currentIndex() - 1)
-        
-    def getInputs(self):
-        """
-        Collect the input values from the combo boxes, calculate BMI, and format them for model prediction.
-
-        Returns:
-        list: A list of input values formatted for prediction.
-        """
-        inputs = []
-        
-        # Age
-        inputs.append(float(self.ui.comboBoxes[0].currentText()))
-        
-        # Gender (0 for female, 1 for male)
-        inputs.append(0 if self.ui.comboBoxes[1].currentText() == "female" else 1)
-        
-        # Calculate BMI using height and weight
-        height = float(self.ui.comboBoxes[2].currentText())
-        weight = float(self.ui.comboBoxes[3].currentText())
-        bmi = weight / ((height / 100) ** 2)
-        inputs.append(bmi)
-        
-        # Epworth score
-        inputs.append(float(self.ui.comboBoxes[4].currentText()))
-        
-        # GAD score
-        inputs.append(float(self.ui.comboBoxes[7].currentText()))
-        
-        # Depressiveness awareness (1 if either diagnosis or treatment is "yes")
-        depressiveness_awareness = (1 if self.ui.comboBoxes[8].currentText() == "yes" or self.ui.comboBoxes[9].currentText() == "yes" else 0)
-        inputs.append(depressiveness_awareness)
-        
-        # Anxiety awareness (1 if either diagnosis or treatment is "yes")
-        anxiety_awareness = (1 if self.ui.comboBoxes[5].currentText() == "yes" or self.ui.comboBoxes[6].currentText() == "yes" else 0)
-        inputs.append(anxiety_awareness)
-                
-        return inputs
+        self.setWindowTitle("Mental Health Predictor")
+        self.resize(800, 600)
     
-    def predict(self):
-        """
-        Perform prediction using the collected inputs and update the output field with the result.
-        """
-        inputs = self.getInputs()
-        X_aim = pd.DataFrame([inputs], columns=self.feature_cols)
-        prediction = self.model.predict(X_aim)  # predicting
-        self.ui.outputField.setText(f'Prediction: {prediction[0]}')  # Output 
+    def setup_welcome_screen(self):
+        self.ui_welcome = Ui_WelcomeScreen()
+        self.ui_welcome.setupUi(self.welcome_screen)
         
-class Anxiety(QDialog):
-    def __init__(self):
-        """
-        Initialize the Anxiety screen with the UI from layer_anxiety.
-        Load the model and its required feature columns and target columns.
-        """
-        super(Anxiety, self).__init__()
-        self.ui = Ui_layer_3()
-        self.ui.setupUi(self)
-        
-        #linking the buttons
-        self.ui.ButtonToWelcome.clicked.connect(self.goToWelcome)
-        self.ui.pushButton_predict.clicked.connect(self.predict)
-        
-        # loading the model
-        with open('./models/best_model_depression.pkl', 'rb') as file:
-            self.model = pickle.load(file)  # Load the models first (as they were saved first)
-            self.target_col = pickle.load(file)   # Load status_names second
-            self.feature_cols = pickle.load(file)    # Load target_cols third
-        
-    def goToWelcome(self):
-        """
-        Transition back to the Welcome screen.
-        """
-        widget.setCurrentIndex(widget.currentIndex() - 2)
-        
-    def getInputs(self):
-        """
-        Collect the input values from the combo boxes, calculate BMI, and format them for model prediction.
-
-        Returns:
-        list: A list of input values formatted for prediction.
-        """
-        inputs = []
-        
-        # Age
-        inputs.append(float(self.ui.comboBoxes[0].currentText()))
-        
-        # Gender (0 for female, 1 for male)
-        inputs.append(0 if self.ui.comboBoxes[1].currentText() == "female" else 1)
-        
-        # Calculate BMI using height and weight
-        height = float(self.ui.comboBoxes[2].currentText())
-        weight = float(self.ui.comboBoxes[3].currentText())
-        bmi = weight / ((height / 100) ** 2)
-        inputs.append(bmi)
-        
-        # Epworth score
-        inputs.append(float(self.ui.comboBoxes[4].currentText()))
-        
-        # GAD score
-        inputs.append(float(self.ui.comboBoxes[7].currentText()))
-        
-        # Depressiveness awareness (1 if either diagnosis or treatment is "yes")
-        depressiveness_awareness = (1 if self.ui.comboBoxes[8].currentText() == "yes" or self.ui.comboBoxes[9].currentText() == "yes" else 0)
-        inputs.append(depressiveness_awareness)
-        
-        # Anxiety awareness (1 if either diagnosis or treatment is "yes")
-        anxiety_awareness = (1 if self.ui.comboBoxes[5].currentText() == "yes" or self.ui.comboBoxes[6].currentText() == "yes" else 0)
-        inputs.append(anxiety_awareness)
-                
-        return inputs
+        # Connect buttons
+        self.ui_welcome.ButtonToDepressiveness.clicked.connect(self.show_depressiveness_screen)
+        self.ui_welcome.ButtonToAnxiety.clicked.connect(self.show_anxiety_screen)
     
-    def predict(self):
-        """
-        Perform prediction using the collected inputs and update the output field with the result.
-        """
-        inputs = self.getInputs()
-        X_aim = pd.DataFrame([inputs], columns=self.feature_cols)
-        prediction = self.model.predict(X_aim)  # predicting
-        self.ui.outputField.setText(f'Prediction: {prediction[0]}')  # Output 
+    def setup_depressiveness_screen(self):
+        self.ui_depressiveness = Ui_DepressivenessScreen()
+        self.ui_depressiveness.setupUi(self.depressiveness_screen)
         
-#main
-app = QApplication(sys.argv)
-welcome = WelcomeScreen()
-widget = QtWidgets.QStackedWidget()
-widget.addWidget(welcome)
-widget.setFixedHeight(572)
-widget.setFixedWidth(792)
-widget.show()
+        # Connect buttons
+        self.ui_depressiveness.pushButton_predict.clicked.connect(self.predict_depressiveness)
+        self.ui_depressiveness.ButtonToWelcome.clicked.connect(self.show_welcome_screen)
+    
+    def setup_anxiety_screen(self):
+        self.ui_anxiety = Ui_AnxietyScreen()
+        self.ui_anxiety.setupUi(self.anxiety_screen)
+        
+        # Connect buttons
+        self.ui_anxiety.pushButton_predict.clicked.connect(self.predict_anxiety)
+        self.ui_anxiety.ButtonToWelcome.clicked.connect(self.show_welcome_screen)
+    
+    def show_welcome_screen(self):
+        self.stacked_widget.setCurrentWidget(self.welcome_screen)
+    
+    def show_depressiveness_screen(self):
+        self.stacked_widget.setCurrentWidget(self.depressiveness_screen)
+    
+    def show_anxiety_screen(self):
+        self.stacked_widget.setCurrentWidget(self.anxiety_screen)
+    
+    def predict_depressiveness(self):
+        # Add prediction logic here
+        pass
+    
+    def predict_anxiety(self):
+        # Add prediction logic here
+        pass
 
-try:
+if __name__ == "__main__":
+    app = QtWidgets.QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
     sys.exit(app.exec_())
-except:
-    print('Existing')
