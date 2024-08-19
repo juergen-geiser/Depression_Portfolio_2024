@@ -17,6 +17,7 @@ class WelcomeScreen(QDialog):
         self.ui = Ui_layer_1()
         self.ui.setupUi(self)
         self.ui.ButtonToDepressiveness.clicked.connect(self.goToDepressiveness)
+        self.ui.ButtonToAnxiety.clicked.connect(self.goToAnxiety)
         
     def goToDepressiveness(self):
         """
@@ -32,7 +33,7 @@ class WelcomeScreen(QDialog):
         """
         anxious = Anxiety()
         widget.addWidget(anxious)
-        widget.setCurrentIndex(widget.currentIndex() +1)
+        widget.setCurrentIndex(widget.currentIndex() +2)
 
 class Depressiveness(QDialog):
     def __init__(self):
@@ -130,7 +131,7 @@ class Anxiety(QDialog):
         """
         Transition back to the Welcome screen.
         """
-        widget.setCurrentIndex(widget.currentIndex() - 1)
+        widget.setCurrentIndex(widget.currentIndex() - 2)
         
     def getInputs(self):
         """
