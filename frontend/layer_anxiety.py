@@ -36,7 +36,7 @@ class Ui_layer_3(object):
         self.create_comboBox_with_label("Depressiveness treatment", ["no", "yes"], 3, 0)
         self.create_comboBox_with_label("Depressiveness Score (PHQ-9)", [str(i) for i in range(0, 28)], 4, 0)
         
-        self.create_comboBox_with_label("Sleepiness score (Epworth)", [f"{i:.1f}" for i in range(0, 24)], 0, 2)
+        self.create_comboBox_with_label("Sleepiness score (Epworth)", [f"{i:.1f}" for i in range(0, 25)], 0, 2)
         self.create_comboBox_with_label("Suicidal", ["no", "yes"], 1, 2)
         self.create_comboBox_with_label("Anxiety diagnosis", ["no", "yes"], 2, 2)
         self.create_comboBox_with_label("Anxiety treatment", ["no", "yes"], 3, 2)

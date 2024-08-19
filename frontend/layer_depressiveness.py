@@ -34,7 +34,7 @@ class Ui_layer_2(object):
         self.create_comboBox_with_label("Gender", ["female", "male"], 1, 0)
         self.create_comboBox_with_label("Height in cm", [str(i) for i in range(140, 221)], 2, 0)
         self.create_comboBox_with_label("Weight in kg", [str(i) for i in range(40, 251)], 3, 0)
-        self.create_comboBox_with_label("Sleepiness score (Epworth)", [f"{i:.1f}" for i in range(0, 24)], 4, 0)
+        self.create_comboBox_with_label("Sleepiness score (Epworth)", [f"{i:.1f}" for i in range(0, 25)], 4, 0)
         self.create_comboBox_with_label("Anxiety diagnosis", ["no", "yes"], 0, 2)
         self.create_comboBox_with_label("Anxiety treatment", ["no", "yes"], 1, 2)
         self.create_comboBox_with_label("Anxiety score (gad-7)", [str(i) for i in range(0, 22)], 2, 2)
