@@ -60,6 +60,24 @@ class Ui_layer_1(object):
         self.ButtonToDepressiveness.setFixedSize(171, 41)
         self.centralLayout.addWidget(self.ButtonToDepressiveness, 0, QtCore.Qt.AlignHCenter)
         
+        # Add the button to the layout, centered horizontally
+        self.ButtonToAnxiety = QtWidgets.QPushButton(self.centralWidget)
+        self.ButtonToAnxiety.setStyleSheet("""
+            QPushButton {
+                background-color: rgb(223, 223, 223);
+                color: rgb(54, 54, 54);
+                border-radius: 10.0px;
+                font: 14pt "MS Shell Dlg 2";
+            }
+            QPushButton:pressed {
+                background-color: rgb(200, 200, 200); /* a bit darker if clicked */
+                border: 2px solid rgb(100, 100, 100); /* a dark frame */
+            }
+        """)
+        self.ButtonToAnxiety.setObjectName("ButtonToAnxiety")
+        self.ButtonToAnxiety.setFixedSize(171, 41)
+        self.centralLayout.addWidget(self.ButtonToAnxiety, 0, QtCore.Qt.AlignHCenter)
+        
         # Handle text translation for widgets
         self.retranslateUi(layer_1)
         QtCore.QMetaObject.connectSlotsByName(layer_1)
@@ -79,6 +97,7 @@ class Ui_layer_1(object):
         self.label.setText(_translate("layer_1", "Welcome"))
         self.label_2.setText(_translate("layer_1", "Please select a target you want to predict"))
         self.ButtonToDepressiveness.setText(_translate("layer_1", "Depressiveness"))
+        self.ButtonToAnxiety.setText(_translate("layer_1", "Anxiety"))
 
 
     
