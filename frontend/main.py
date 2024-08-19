@@ -165,9 +165,6 @@ class Anxiety(QDialog):
         # Epworth score
         inputs.append(float(self.ui.comboBoxes[5].currentText()))
         
-        # Suicidal
-        inputs.append(1 if self.ui.comboBoxes[6].currentText() == "yes" else 0)
-        
         # Calculate BMI using height and weight
         height = float(self.ui.comboBoxes[9].currentText())
         weight = float(self.ui.comboBoxes[10].currentText())
@@ -181,6 +178,9 @@ class Anxiety(QDialog):
         # Anxiety awareness (1 if either diagnosis or treatment is "yes")
         anxiety_awareness = (1 if self.ui.comboBoxes[7].currentText() == "yes" or self.ui.comboBoxes[8].currentText() == "yes" else 0)
         inputs.append(anxiety_awareness)
+        
+        # Suicidal
+        inputs.append(1 if self.ui.comboBoxes[6].currentText() == "yes" else 0)
                 
         return inputs
     
