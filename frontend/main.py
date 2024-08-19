@@ -9,12 +9,18 @@ from layer_depressiveness import Ui_layer_2
 
 class WelcomeScreen(QDialog):
     def __init__(self):
+        """
+        Initialize the WelcomeScreen with the UI from layer_welcome and connect the button to transition to Depressiveness screen.
+        """
         super(WelcomeScreen, self).__init__()
         self.ui = Ui_layer_1()
         self.ui.setupUi(self)
         self.ui.ButtonToDepressiveness.clicked.connect(self.goToDepressiveness)
         
     def goToDepressiveness(self):
+        """
+        Transition to the Depressiveness screen.
+        """
         depressive = Depressiveness()
         widget.addWidget(depressive)
         widget.setCurrentIndex(widget.currentIndex() +1)
@@ -22,6 +28,10 @@ class WelcomeScreen(QDialog):
 
 class Depressiveness(QDialog):
     def __init__(self):
+        """
+        Initialize the Depressiveness screen with the UI from layer_depressiveness.
+        Load the model and its required feature columns and target columns.
+        """
         super(Depressiveness, self).__init__()
         self.ui = Ui_layer_2()
         self.ui.setupUi(self)
@@ -37,38 +47,52 @@ class Depressiveness(QDialog):
             self.feature_cols = pickle.load(file)    # Load target_cols third
         
     def goToWelcome(self):
+        """
+        Transition back to the Welcome screen.
+        """
         widget.setCurrentIndex(widget.currentIndex() - 1)
         
     def getInputs(self):
+        """
+        Collect the input values from the combo boxes, calculate BMI, and format them for model prediction.
+
+        Returns:
+        list: A list of input values formatted for prediction.
+        """
         inputs = []
         
-        # age
-        inputs.append(float(self.ui.comboBox_0_1.currentText()))
+        # Age
+        inputs.append(float(self.ui.comboBoxes[0].currentText()))
         
-        # gender
-        inputs.append(0 if self.ui.comboBox_1_1.currentText() == "female" else 1)
+        # Gender (0 for female, 1 for male)
+        inputs.append(0 if self.ui.comboBoxes[1].currentText() == "female" else 1)
         
-        # bmi inlcuding the calculation 
-        height = float(self.ui.comboBox_2_1.currentText())
-        weight = float(self.ui.comboBox_3_1.currentText())
+        # Calculate BMI using height and weight
+        height = float(self.ui.comboBoxes[2].currentText())
+        weight = float(self.ui.comboBoxes[3].currentText())
         bmi = weight / ((height / 100) ** 2)
         inputs.append(bmi)
         
-        # epworth_score
-        inputs.append(float(self.ui.comboBox_4_1.currentText()))  
-                
-        # gad_score
-        inputs.append(float(self.ui.comboBox_2_3.currentText()))
+        # Epworth score
+        inputs.append(float(self.ui.comboBoxes[4].currentText()))
         
-        # depressiveness_awareness
-        inputs.append(1 if self.ui.comboBox_3_3.currentText() == "yes" or self.ui.comboBox_4_3.currentText() == "yes"else 0)
+        # GAD score
+        inputs.append(float(self.ui.comboBoxes[7].currentText()))
         
-        # anxiety_awareness
-        inputs.append(1 if self.ui.comboBox_0_3.currentText() == "yes" or self.ui.comboBox_1_3.currentText() == "yes" else 0)  
+        # Depressiveness awareness (1 if either diagnosis or treatment is "yes")
+        depressiveness_awareness = (1 if self.ui.comboBoxes[8].currentText() == "yes" or self.ui.comboBoxes[9].currentText() == "yes" else 0)
+        inputs.append(depressiveness_awareness)
+        
+        # Anxiety awareness (1 if either diagnosis or treatment is "yes")
+        anxiety_awareness = (1 if self.ui.comboBoxes[5].currentText() == "yes" or self.ui.comboBoxes[6].currentText() == "yes" else 0)
+        inputs.append(anxiety_awareness)
                 
         return inputs
     
     def predict(self):
+        """
+        Perform prediction using the collected inputs and update the output field with the result.
+        """
         inputs = self.getInputs()
         X_aim = pd.DataFrame([inputs], columns=self.feature_cols)
         prediction = self.model.predict(X_aim)  # predicting
@@ -79,8 +103,8 @@ app = QApplication(sys.argv)
 welcome = WelcomeScreen()
 widget = QtWidgets.QStackedWidget()
 widget.addWidget(welcome)
-widget.setFixedHeight(500)
-widget.setFixedWidth(750)
+widget.setFixedHeight(572)
+widget.setFixedWidth(792)
 widget.show()
 
 try:

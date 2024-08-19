@@ -3,182 +3,45 @@ import numpy as np
 
 class Ui_layer_2(object):
     def setupUi(self, layer_2):
+        """
+        Set up the user interface for the 'layer_2' window.
+
+        Parameters:
+        layer_2 (QtWidgets.QWidget): The widget that acts as the parent for all other UI elements.
+        """
         layer_2.setObjectName("layer_2")
         layer_2.resize(792, 572)
+        
+        # Set the background color with a gradient
         layer_2.setStyleSheet("QWidget#layer_2{\n"
                               "background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(79, 79, 79, 255), stop:1 rgba(255, 255, 255, 255));\n"
                               "}\n"
                               "")
         
+        # Widget to hold the grid layout
         self.layoutWidget = QtWidgets.QWidget(layer_2)
         self.layoutWidget.setGeometry(QtCore.QRect(50, 70, 661, 181))
         self.layoutWidget.setObjectName("layoutWidget")
         
+        # Grid layout to organize labels and combo boxes
         self.gridLayout = QtWidgets.QGridLayout(self.layoutWidget)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
         
-        #labels and comboBoxes for Inputs
-        #input age column
-        self.label_0_0 = QtWidgets.QLabel(self.layoutWidget)
-        self.label_0_0.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
-        self.label_0_0.setObjectName("label_0_0")
-        self.label_0_0.setText("age")
-        self.gridLayout.addWidget(self.label_0_0, 0, 0, 1, 1)
-        
-        self.comboBox_0_1 = QtWidgets.QComboBox(self.layoutWidget)
-        self.comboBox_0_1.setObjectName("comboBox_0_1")
-        self.gridLayout.addWidget(self.comboBox_0_1, 0, 1, 1, 1)
-        
-        #filling the box with items
-        age_dropdown_items = [str(i) for i in range(15,41)]
-        self.comboBox_0_1.addItems(age_dropdown_items)
-        
-                
-        #input gender column
-        self.label_1_0 = QtWidgets.QLabel(self.layoutWidget)
-        self.label_1_0.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
-        self.label_1_0.setObjectName("label_1_0")
-        self.label_1_0.setText("gender")
-        self.gridLayout.addWidget(self.label_1_0, 2, 0, 1, 1)
-        
-        self.comboBox_1_1 = QtWidgets.QComboBox(self.layoutWidget)
-        self.comboBox_1_1.setStyleSheet("")
-        self.comboBox_1_1.setObjectName("comboBox_1_1")
-        self.gridLayout.addWidget(self.comboBox_1_1, 2, 1, 1, 1)
-        
-        #filling the box with items
-        gender_dropdown_items = ["female", "male"]
-        self.comboBox_1_1.addItems(gender_dropdown_items)
-
-        
-        #input height, 1/2 of the bmi column
-        self.label_2_0 = QtWidgets.QLabel(self.layoutWidget)
-        self.label_2_0.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
-        self.label_2_0.setObjectName("label_2_0")
-        self.label_2_0.setText("height in cm")
-        self.gridLayout.addWidget(self.label_2_0, 3, 0, 1, 1)
-        
-        self.comboBox_2_1 = QtWidgets.QComboBox(self.layoutWidget)
-        self.comboBox_2_1.setObjectName("comboBox_2_1")
-        self.gridLayout.addWidget(self.comboBox_2_1, 3, 1, 1, 1)
-        
-        #filling the box
-        height_dropdown_items = [str(i) for i in range(140,221)]
-        self.comboBox_2_1.addItems(height_dropdown_items)
-        
-        
-        #input weight, 2/2 of the bmi column
-        self.label_3_0 = QtWidgets.QLabel(self.layoutWidget)
-        self.label_3_0.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
-        self.label_3_0.setObjectName("label_3_0")
-        self.label_3_0.setText("weight in kg")
-        self.gridLayout.addWidget(self.label_3_0, 4, 0, 1, 1)
-               
-        self.comboBox_3_1 = QtWidgets.QComboBox(self.layoutWidget)
-        self.comboBox_3_1.setObjectName("comboBox_3_1")
-        self.gridLayout.addWidget(self.comboBox_3_1, 4, 1, 1, 1)
-        
-        #filling the box
-        weight_dropdown_items = [str(i) for i in range(40,251)]
-        self.comboBox_3_1.addItems(weight_dropdown_items)
-        
-        #input epworth_score
-        self.label_4_0 = QtWidgets.QLabel(self.layoutWidget)
-        self.label_4_0.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
-        self.label_4_0.setObjectName("label_4_0")
-        self.label_4_0.setText("epworth_score")
-        self.gridLayout.addWidget(self.label_4_0, 5, 0, 1, 1)
-        
-        self.comboBox_4_1 = QtWidgets.QComboBox(self.layoutWidget)
-        self.comboBox_4_1.setObjectName("comboBox_4_1")
-        self.gridLayout.addWidget(self.comboBox_4_1, 5, 1, 1, 1)
-        
-        #filling the box
-        epworth_score_dropdown_items = [f"{i:.1f}" for i in np.arange(0,32.1,0.1)]
-        self.comboBox_4_1.addItems(epworth_score_dropdown_items)
-        
-        
-        #input anxiety_diagnosis       
-        self.label_0_2 = QtWidgets.QLabel(self.layoutWidget)
-        self.label_0_2.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
-        self.label_0_2.setObjectName("label_0_2")
-        self.label_0_2.setText("anxiety_diagnosis")
-        self.gridLayout.addWidget(self.label_0_2, 0, 2, 1, 1)
-        
-        self.comboBox_0_3 = QtWidgets.QComboBox(self.layoutWidget)
-        self.comboBox_0_3.setObjectName("comboBox_0_3")
-        self.gridLayout.addWidget(self.comboBox_0_3, 0, 3, 1, 1)
-        
-        #filling the box with items
-        anxiety_diagnosis_dropdown_items = ["no", "yes"]
-        self.comboBox_0_3.addItems(anxiety_diagnosis_dropdown_items)
-        
-        
-        #input anxiety_treatment
-        self.label_1_2 = QtWidgets.QLabel(self.layoutWidget)
-        self.label_1_2.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
-        self.label_1_2.setObjectName("label_1_2")
-        self.label_1_2.setText("anxiety_treatment")
-        self.gridLayout.addWidget(self.label_1_2, 2, 2, 1, 1)
-        
-        self.comboBox_1_3 = QtWidgets.QComboBox(self.layoutWidget)
-        self.comboBox_1_3.setObjectName("comboBox_1_3")
-        self.gridLayout.addWidget(self.comboBox_1_3, 2, 3, 1, 1)
-        
-        #filling the box with items
-        anxiety_treatment_dropdown_items = ["no", "yes"]
-        self.comboBox_1_3.addItems(anxiety_treatment_dropdown_items)
-        
-        
-        #input gad_score
-        self.label_2_2 = QtWidgets.QLabel(self.layoutWidget)
-        self.label_2_2.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
-        self.label_2_2.setObjectName("label_2_2")
-        self.label_2_2.setText("gad_score")
-        self.gridLayout.addWidget(self.label_2_2, 3, 2, 1, 1)
-        
-        self.comboBox_2_3 = QtWidgets.QComboBox(self.layoutWidget)
-        self.comboBox_2_3.setObjectName("comboBox_2_3")
-        self.gridLayout.addWidget(self.comboBox_2_3, 3, 3, 1, 1)
-        
-        #filling the box
-        gad_score_dropdown_items = [str(i) for i in range(0,21)]
-        self.comboBox_2_3.addItems(gad_score_dropdown_items)
-        
-        
-        #input depressiveness_diagnosis
-        self.label_3_2 = QtWidgets.QLabel(self.layoutWidget)
-        self.label_3_2.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
-        self.label_3_2.setObjectName("label_3_2")
-        self.label_3_2.setText("depressiveness_diagnosis")
-        self.gridLayout.addWidget(self.label_3_2, 4, 2, 1, 1)
-        
-        self.comboBox_3_3 = QtWidgets.QComboBox(self.layoutWidget)
-        self.comboBox_3_3.setObjectName("comboBox_3_3")
-        self.gridLayout.addWidget(self.comboBox_3_3, 4, 3, 1, 1)
-        
-        #filling the box with items
-        depressiveness_diagnosis_dropdown_items = ["no", "yes"]
-        self.comboBox_3_3.addItems(depressiveness_diagnosis_dropdown_items)
-        
-        #input depressiveness_treatment
-        self.label_4_2 = QtWidgets.QLabel(self.layoutWidget)
-        self.label_4_2.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
-        self.label_4_2.setObjectName("label_4_2")
-        self.label_4_2.setText("depressiveness_treatment")
-        self.gridLayout.addWidget(self.label_4_2, 5, 2, 1, 1)
-        
-        self.comboBox_4_3 = QtWidgets.QComboBox(self.layoutWidget)
-        self.comboBox_4_3.setObjectName("comboBox_4_3")
-        self.gridLayout.addWidget(self.comboBox_4_3, 5, 3, 1, 1)
-        
-        #filling the box with items
-        depressiveness_treatment_dropdown_items = ["no", "yes"]
-        self.comboBox_4_3.addItems(depressiveness_treatment_dropdown_items)
+        # Initialize comboBoxes and add them to the grid layout
+        self.comboBoxes = []
+        self.create_comboBox_with_label("Age", [str(i) for i in range(15, 41)], 0, 0)
+        self.create_comboBox_with_label("Gender", ["female", "male"], 2, 0)
+        self.create_comboBox_with_label("Height in cm", [str(i) for i in range(140, 221)], 3, 0)
+        self.create_comboBox_with_label("Weight in kg", [str(i) for i in range(40, 251)], 4, 0)
+        self.create_comboBox_with_label("Sleepiness score (Epworth)", [f"{i:.1f}" for i in np.arange(0, 32.1, 0.1)], 5, 0)
+        self.create_comboBox_with_label("Anxiety diagnosis", ["no", "yes"], 0, 2)
+        self.create_comboBox_with_label("Anxiety treatment", ["no", "yes"], 2, 2)
+        self.create_comboBox_with_label("Anxiety score (gad-7)", [str(i) for i in range(0, 21)], 3, 2)
+        self.create_comboBox_with_label("Depressiveness diagnosis", ["no", "yes"], 4, 2)
+        self.create_comboBox_with_label("Depressiveness treatment", ["no", "yes"], 5, 2)
        
-       
-        #output
+        # Create a text area for output
         self.outputField = QtWidgets.QTextEdit(layer_2)
         self.outputField.setGeometry(QtCore.QRect(50, 390, 651, 121))
         self.outputField.setStyleSheet("background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(202, 202, 202, 255), stop:1 rgba(255, 255, 255, 255));\n"
@@ -186,21 +49,21 @@ class Ui_layer_2(object):
                                        "")
         self.outputField.setObjectName("outputField")
         
-        #headline 
+        # Create the headline label 
         self.headlineDepressiveness = QtWidgets.QLabel(layer_2)
         self.headlineDepressiveness.setGeometry(QtCore.QRect(90, 10, 571, 41))
         self.headlineDepressiveness.setStyleSheet("color:rgb(255, 255, 255);\n"
                                                   "font: 24pt \"MS Shell Dlg 2\";")
         self.headlineDepressiveness.setObjectName("headlineDepressiveness")
         
+        # Create a frame to hold the buttons
         self.frame = QtWidgets.QFrame(layer_2)
         self.frame.setGeometry(QtCore.QRect(70, 260, 601, 91))
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         
-        #buttons
-        #predict
+        # Create the "Predict" button
         self.pushButton_predict = QtWidgets.QPushButton(self.frame)
         self.pushButton_predict.setGeometry(QtCore.QRect(90, 30, 141, 41))
         self.pushButton_predict.setStyleSheet("""
@@ -217,7 +80,7 @@ class Ui_layer_2(object):
         """)        
         self.pushButton_predict.setObjectName("pushButton_predict")
         
-        #home- back to welcome page
+        # Create the "Return to Welcome" button
         self.ButtonToWelcome = QtWidgets.QPushButton(self.frame)
         self.ButtonToWelcome.setGeometry(QtCore.QRect(370, 30, 191, 41))
         self.ButtonToWelcome.setStyleSheet("""
@@ -234,8 +97,35 @@ class Ui_layer_2(object):
         """)
         self.ButtonToWelcome.setObjectName("ButtonToWelcome")
 
+        # Retranslate the UI elements to set their text values
         self.retranslateUi(layer_2)
         QtCore.QMetaObject.connectSlotsByName(layer_2)
+    
+    
+    def create_comboBox_with_label(self, label_text, items, row, col, placeholder=None):
+        """
+        Create a QLabel and QComboBox pair, and add them to the grid layout.
+
+        Parameters:
+        label_text (str): The text to be displayed on the QLabel.
+        items (list): The items to be added to the QComboBox.
+        row (int): The row position in the grid layout.
+        col (int): The column position in the grid layout.
+        """
+        # Create and style the QLabel
+        label = QtWidgets.QLabel(self.layoutWidget)
+        label.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
+        label.setText(label_text)
+        self.gridLayout.addWidget(label, row, col, 1, 1)
+
+        # Create and style the QComboBox
+        comboBox = QtWidgets.QComboBox(self.layoutWidget)
+        comboBox.setObjectName(f"comboBox_{row}_{col+1}")
+        comboBox.addItems(items)
+        self.gridLayout.addWidget(comboBox, row, col+1, 1, 1)
+        
+        # Append the comboBox to the list of comboBoxes
+        self.comboBoxes.append(comboBox)
 
     def retranslateUi(self, layer_2):
             
