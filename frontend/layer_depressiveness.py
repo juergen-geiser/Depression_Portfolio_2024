@@ -30,16 +30,16 @@ class Ui_layer_2(object):
         
         # Initialize comboBoxes and add them to the grid layout
         self.comboBoxes = []
-        self.create_comboBox_with_label("age", [str(i) for i in range(15, 41)], 0, 0)
-        self.create_comboBox_with_label("gender", ["female", "male"], 2, 0)
-        self.create_comboBox_with_label("height in cm", [str(i) for i in range(140, 221)], 3, 0)
-        self.create_comboBox_with_label("weight in kg", [str(i) for i in range(40, 251)], 4, 0)
-        self.create_comboBox_with_label("epworth_score", [f"{i:.1f}" for i in np.arange(0, 32.1, 0.1)], 5, 0)
-        self.create_comboBox_with_label("anxiety_diagnosis", ["no", "yes"], 0, 2)
-        self.create_comboBox_with_label("anxiety_treatment", ["no", "yes"], 2, 2)
-        self.create_comboBox_with_label("gad_score", [str(i) for i in range(0, 21)], 3, 2)
-        self.create_comboBox_with_label("depressiveness_diagnosis", ["no", "yes"], 4, 2)
-        self.create_comboBox_with_label("depressiveness_treatment", ["no", "yes"], 5, 2)
+        self.create_comboBox_with_label("Age", [str(i) for i in range(15, 41)], 0, 0)
+        self.create_comboBox_with_label("Gender", ["female", "male"], 2, 0)
+        self.create_comboBox_with_label("Height in cm", [str(i) for i in range(140, 221)], 3, 0)
+        self.create_comboBox_with_label("Weight in kg", [str(i) for i in range(40, 251)], 4, 0)
+        self.create_comboBox_with_label("Sleepiness score (Epworth)", [f"{i:.1f}" for i in np.arange(0, 32.1, 0.1)], 5, 0)
+        self.create_comboBox_with_label("Anxiety diagnosis", ["no", "yes"], 0, 2)
+        self.create_comboBox_with_label("Anxiety treatment", ["no", "yes"], 2, 2)
+        self.create_comboBox_with_label("Anxiety score (gad-7)", [str(i) for i in range(0, 21)], 3, 2)
+        self.create_comboBox_with_label("Depressiveness diagnosis", ["no", "yes"], 4, 2)
+        self.create_comboBox_with_label("Depressiveness treatment", ["no", "yes"], 5, 2)
        
         # Create a text area for output
         self.outputField = QtWidgets.QTextEdit(layer_2)
