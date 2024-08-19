@@ -114,9 +114,9 @@ class Depressiveness(QDialog):
         
         # Print the predicted class and corresponding probability
         if predicted_class == 0:
-            self.ui.outputField.setText(f"Predicted Non-Anxious: Predicted Class {predicted_class}, Probability = {prob_class_0[0]:.2f}")
+            self.ui.outputField.setText(f"Predicted Class: Not Depressive, Probability = {prob_class_0[0]:.2f}")
         else:
-            self.ui.outputField.setText(f"Predicted Anxious: Predicted Class {predicted_class}, Probability = {prob_class_1[0]:.2f}") 
+            self.ui.outputField.setText(f"Predicted Class: Depressive, Probability = {prob_class_1[0]:.2f}") 
         
 class Anxiety(QDialog):
     def __init__(self):
@@ -200,9 +200,9 @@ class Anxiety(QDialog):
         
         # Print the predicted class and corresponding probability
         if predicted_class == 0:
-            self.ui.outputField.setText(f"Predicted Non-Anxious: Predicted Class {predicted_class}, Probability = {prob_class_0[0]:.2f}")
+            self.ui.outputField.setText(f"Predicted Class: Non-Anxious, Probability = {prob_class_0[0]:.2f}")
         else:
-            self.ui.outputField.setText(f"Predicted Anxious: Predicted Class {predicted_class}, Probability = {prob_class_1[0]:.2f}")
+            self.ui.outputField.setText(f"Predicted Class: Anxious, Probability = {prob_class_1[0]:.2f}") 
         
         
         
