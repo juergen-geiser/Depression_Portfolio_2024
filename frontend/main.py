@@ -103,8 +103,8 @@ app = QApplication(sys.argv)
 welcome = WelcomeScreen()
 widget = QtWidgets.QStackedWidget()
 widget.addWidget(welcome)
-widget.setFixedHeight(500)
-widget.setFixedWidth(750)
+widget.setFixedHeight(572)
+widget.setFixedWidth(792)
 widget.show()
 
 try:
