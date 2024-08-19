@@ -105,7 +105,18 @@ class Depressiveness(QDialog):
         inputs = self.getInputs()
         X_aim = pd.DataFrame([inputs], columns=self.feature_cols)
         prediction = self.model.predict(X_aim)  # predicting
-        self.ui.outputField.setText(f'Prediction: {prediction[0]}')  # Output 
+        predicted_class = prediction[0]
+        
+        # Get the probability for both classes
+        probabilities = self.model.predict_proba(X_aim)
+        prob_class_0 = probabilities[:, 0] # Probability for class 0
+        prob_class_1 = probabilities[:, 1]  # Probability for class 1
+        
+        # Print the predicted class and corresponding probability
+        if predicted_class == 0:
+            self.ui.outputField.setText(f"Predicted Non-Anxious: Predicted Class {predicted_class}, Probability = {prob_class_0[0]:.2f}")
+        else:
+            self.ui.outputField.setText(f"Predicted Anxious: Predicted Class {predicted_class}, Probability = {prob_class_1[0]:.2f}") 
         
 class Anxiety(QDialog):
     def __init__(self):
@@ -180,7 +191,21 @@ class Anxiety(QDialog):
         inputs = self.getInputs()
         X_aim = pd.DataFrame([inputs], columns=self.feature_cols)
         prediction = self.model.predict(X_aim)  # predicting
-        self.ui.outputField.setText(f'Prediction: {prediction[0]}')  # Output 
+        predicted_class = prediction[0]
+        
+        # Get the probability for both classes
+        probabilities = self.model.predict_proba(X_aim)
+        prob_class_0 = probabilities[:, 0] # Probability for class 0
+        prob_class_1 = probabilities[:, 1]  # Probability for class 1
+        
+        # Print the predicted class and corresponding probability
+        if predicted_class == 0:
+            self.ui.outputField.setText(f"Predicted Non-Anxious: Predicted Class {predicted_class}, Probability = {prob_class_0[0]:.2f}")
+        else:
+            self.ui.outputField.setText(f"Predicted Anxious: Predicted Class {predicted_class}, Probability = {prob_class_1[0]:.2f}")
+        
+        
+        
         
 #main
 app = QApplication(sys.argv)
