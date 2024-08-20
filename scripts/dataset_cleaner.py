@@ -14,7 +14,7 @@ class DepressionAnxietyDataCleaner:
 
     def initial_transformations(self):
         """Perform initial transformations, such as replacing values and setting data types."""
-        self.df['epworth_score'] = self.df['epworth_score'].replace("NA", -1).astype(int)
+        self.df['epworth_score'] = pd.to_numeric(self.df['epworth_score'], errors='coerce').fillna(-1).astype(int)
         self.df = self.df.astype({
             'id': 'int64',
             'school_year': 'int64',
