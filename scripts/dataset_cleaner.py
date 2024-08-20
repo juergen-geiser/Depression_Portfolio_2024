@@ -2,19 +2,50 @@ import pandas as pd
 import numpy as np
 
 class DepressionAnxietyDataCleaner:
+    """
+    A class used to clean and preprocess the depression and anxiety dataset.
+    
+    Attributes:
+    ----------
+    input_path : str
+        The file path to the input CSV file.
+    output_path : str
+        The file path where the cleaned CSV file will be saved.
+    df : pd.DataFrame
+        The DataFrame that holds the data being processed.
+    """
+
     def __init__(self, input_path, output_path):
+        """
+        Initializes the data cleaner with paths for input and output files.
+
+        Parameters:
+        ----------
+        input_path : str
+            The path to the input CSV file.
+        output_path : str
+            The path where the cleaned data will be saved.
+        """
         self.input_path = input_path
         self.output_path = output_path
         self.df = None
 
     def load_data(self):
-        """Load the dataset from the CSV file."""
+        """
+        Loads the dataset from the specified CSV file into a DataFrame.
+        """
         self.df = pd.read_csv(self.input_path)
         print("Data loaded successfully.")
 
     def initial_transformations(self):
-        """Perform initial transformations, such as replacing values and setting data types."""
+        """
+        Performs initial data transformations:
+        - Replaces 'NA' with -1 in the 'epworth_score' column and converts it to integers.
+        - Sets appropriate data types for key columns.
+        """
         self.df['epworth_score'] = pd.to_numeric(self.df['epworth_score'], errors='coerce').fillna(-1).astype(int)
+        
+        # Apply type conversions to other columns
         self.df = self.df.astype({
             'id': 'int64',
             'school_year': 'int64',
@@ -31,13 +62,19 @@ class DepressionAnxietyDataCleaner:
         print("Initial transformations completed.")
 
     def drop_na_columns(self):
-        """Remove rows with NA in critical independent columns."""
+        """
+        Drops rows where critical independent columns contain NA values.
+        These columns are crucial for the analysis and must not have missing values.
+        """
         self.df = self.df.dropna(subset=['suicidal', 'anxiety_diagnosis', 'anxiety_treatment', 
                                          'depression_diagnosis', 'depression_treatment'])
         print("Dropped rows with NA in critical independent columns.")
 
     def calculate_medians(self):
-        """Calculate median values for key columns."""
+        """
+        Calculates the median values for key numerical columns in the dataset.
+        The medians are used later to impute missing or invalid data.
+        """
         self.median_bmi = self.df['bmi'].median()
         self.median_phq = self.df['phq_score'].median()
         self.median_epworth = self.df['epworth_score'].median()
@@ -45,12 +82,18 @@ class DepressionAnxietyDataCleaner:
         print("Medians calculated.")
 
     def clean_bmi_column(self):
-        """Clean the 'bmi' column by replacing 0 values with the median."""
+        """
+        Cleans the 'bmi' column by replacing zero values with the calculated median.
+        This ensures that invalid BMI values are corrected.
+        """
         self.df['bmi'] = self.df['bmi'].replace(0, self.median_bmi)
         print("BMI column cleaned.")
 
     def update_who_bmi(self):
-        """Update the 'who_bmi' column based on 'bmi' values."""
+        """
+        Updates the 'who_bmi' column based on the values in the 'bmi' column.
+        The BMI categories are classified according to WHO standards.
+        """
         def calculate_who_bmi(bmi):
             if bmi < 18.4:
                 return "Underweight"
@@ -71,17 +114,27 @@ class DepressionAnxietyDataCleaner:
         print("WHO BMI column updated.")
 
     def clean_epworth_score(self):
-        """Clean the 'epworth_score' column by replacing values < 0 or > 27 with the median."""
+        """
+        Cleans the 'epworth_score' column by replacing values that are less than 0 or greater than 27 
+        with the median value. This ensures that all scores are within the valid range.
+        """
         self.df['epworth_score'] = self.df['epworth_score'].apply(lambda x: self.median_epworth if x < 0 or x > 27 else x)
         print("Epworth score column cleaned.")
 
     def update_sleepiness(self):
-        """Update the 'sleepiness' column based on 'epworth_score'."""
+        """
+        Updates the 'sleepiness' column based on the values in the 'epworth_score' column.
+        A score greater than 9 indicates sleepiness.
+        """
         self.df['sleepiness'] = self.df['epworth_score'] > 9
         print("Sleepiness column updated.")
 
     def clean_gad_related_columns(self):
-        """Clean the 'gad_score' related columns."""
+        """
+        Cleans and updates columns related to 'gad_score':
+        - 'anxiety_severity' is derived based on the GAD score.
+        - 'anxiousness' is a boolean value indicating if the GAD score is above 9.
+        """
         def calculate_anxiety_severity(gad_score):
             if gad_score < 4:
                 return "None-minimal"
@@ -99,7 +152,11 @@ class DepressionAnxietyDataCleaner:
         print("GAD-related columns cleaned.")
 
     def clean_phq_related_columns(self):
-        """Clean the 'phq_score' related columns."""
+        """
+        Cleans and updates columns related to 'phq_score':
+        - 'depression_severity' is derived based on the PHQ score.
+        - 'depressiveness' is updated based on the PHQ score and suicidal tendencies.
+        """
         self.df['phq_score'] = self.df.apply(lambda row: self.median_phq if row['phq_score'] == 0 and row['depression_severity'] == "NA" else row['phq_score'], axis=1)
 
         def calculate_depression_severity(phq_score):
@@ -122,7 +179,10 @@ class DepressionAnxietyDataCleaner:
         print("PHQ-related columns cleaned.")
 
     def reorder_columns(self):
-        """Reorder the columns in the DataFrame."""
+        """
+        Reorders the columns in the DataFrame to match the desired output structure.
+        This ensures consistency in the final dataset.
+        """
         self.df = self.df[['id', 'school_year', 'age', 'gender', 'bmi', 'who_bmi', 'phq_score', 
                            'depression_severity', 'depressiveness', 'suicidal', 
                            'depression_diagnosis', 'depression_treatment', 'gad_score', 
@@ -131,7 +191,10 @@ class DepressionAnxietyDataCleaner:
         print("Columns reordered.")
 
     def final_type_conversions(self):
-        """Perform final type conversions to ensure correct data types."""
+        """
+        Performs final type conversions to ensure all columns have the correct data types.
+        This is crucial for consistent data analysis and output.
+        """
         self.df = self.df.astype({
             'id': 'int64',
             'school_year': 'int64',
@@ -155,12 +218,24 @@ class DepressionAnxietyDataCleaner:
         print("Final type conversions done.")
 
     def save_cleaned_data(self):
-        """Save the cleaned DataFrame to a new CSV file."""
+        """
+        Saves the cleaned DataFrame to the specified output CSV file.
+        """
         self.df.to_csv(self.output_path, index=False)
         print(f"Cleaned data saved to {self.output_path}.")
 
     def clean_dataset(self):
-        """Execute the full data cleaning process."""
+        """
+        Executes the full data cleaning process, including:
+        - Loading the data
+        - Performing initial transformations
+        - Dropping rows with critical NAs
+        - Calculating median values
+        - Cleaning and updating relevant columns
+        - Reordering columns
+        - Applying final type conversions
+        - Saving the cleaned data to the output path
+        """
         self.load_data()
         self.initial_transformations()
         self.drop_na_columns()
