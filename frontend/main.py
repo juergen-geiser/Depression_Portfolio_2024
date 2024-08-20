@@ -16,7 +16,7 @@ class WelcomeScreen(QDialog):
         Initialize the WelcomeScreen with the UI from layer_welcome and connect the button to transition to Depressiveness screen.
         """
         super(WelcomeScreen, self).__init__()
-        #self.setWindowIcon(QIcon('../frontend/img/amiwell-icon.png'))  # Set the window icon here
+        self.setWindowIcon(QIcon('img/amiwell-icon.png'))  # Set the window icon here
         self.setWindowTitle("amiwell - Welcome")  # Set the window title here
         self.ui = Ui_layer_1()
         self.ui.setupUi(self)
@@ -120,9 +120,9 @@ class Depressiveness(QDialog):
         
         # Print the predicted class and corresponding probability
         if predicted_class == 0:
-            self.ui.outputField.setText(f"Predicted Class: Not Depressive, Probability = {prob_class_0[0]:.2f}")
+            self.ui.outputField.setText(f"Our analysis suggests that depression is unlikely. \nHowever, if you have concerns, it's always best to discuss them with a professional. \nProbability that our prediction is correct is at {prob_class_0[0]* 100:.2f}%")
         else:
-            self.ui.outputField.setText(f"Predicted Class: Depressive, Probability = {prob_class_1[0]:.2f}") 
+            self.ui.outputField.setText(f"Our analysis suggests a higher likelihood of depression. \nWe recommend seeking professional advice for a more accurate diagnosis. \nProbability that our prediction is correct is at {prob_class_1[0]* 100:.2f}%") 
         
 class Anxiety(QDialog):
     def __init__(self):
@@ -206,9 +206,9 @@ class Anxiety(QDialog):
         
         # Print the predicted class and corresponding probability
         if predicted_class == 0:
-            self.ui.outputField.setText(f"Predicted Class: Non-Anxious, Probability = {prob_class_0[0]:.2f}")
+            self.ui.outputField.setText(f"Our analysis suggests that anxiety is unlikely. \nHowever, if you have concerns, it's always best to discuss them with a professional. \nProbability that our prediction is correct is at {prob_class_0[0]* 100:.2f}%")
         else:
-            self.ui.outputField.setText(f"Predicted Class: Anxious, Probability = {prob_class_1[0]:.2f}") 
+            self.ui.outputField.setText(f"Our analysis suggests a higher likelihood of anxiety. \nWe recommend seeking professional advice for a more accurate diagnosis. \nProbability that our prediction is correct is at {prob_class_1[0]* 100:.2f}%") 
 
 def updateWindowTitle(index):
     """
@@ -239,14 +239,14 @@ def updateWindowTitle(index):
 app = QApplication(sys.argv)
 
 # setting a global icon
-app.setWindowIcon(QIcon('../frontend/img/amiwell-icon.png'))  # Optional: Set a global icon for the entire application
+app.setWindowIcon(QIcon('img/amiwell-icon.png'))  # Optional: Set a global icon for the entire application
 
 # Create the welcomeScreen
 welcome = WelcomeScreen()
 
 # Create and configure the QStackedWidget
 widget = QtWidgets.QStackedWidget()
-#widget.setWindowIcon(QIcon('../frontend/img/amiwell-icon.png'))  # Set icon for the widget
+widget.setWindowIcon(QIcon('img/amiwell-icon.png'))  # Set icon for the widget
 widget.setWindowTitle("amiwell - Welcome")  # Set title for the widget
 widget.addWidget(welcome)
 widget.setFixedHeight(572)
