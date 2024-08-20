@@ -1,132 +1,176 @@
 import pandas as pd
 import numpy as np
 
-# 1. Load the data
-df = pd.read_csv("data/depression_anxiety_data.csv")
+class DepressionAnxietyDataCleaner:
+    def __init__(self, input_path, output_path):
+        self.input_path = input_path
+        self.output_path = output_path
+        self.df = None
 
-# 2. Initial data transformations
-# Ensure correct data types
-df['epworth_score'] = df['epworth_score'].replace("NA", -1).fillna(-1).astype(int)
+    def load_data(self):
+        """Load the dataset from the CSV file."""
+        self.df = pd.read_csv(self.input_path)
+        print("Data loaded successfully.")
 
+    def initial_transformations(self):
+        """Perform initial transformations, such as replacing values and setting data types."""
+        self.df['epworth_score'] = self.df['epworth_score'].replace("NA", -1).astype(int)
+        self.df = self.df.astype({
+            'id': 'int64',
+            'school_year': 'int64',
+            'age': 'int64',
+            'bmi': 'float',
+            'who_bmi': 'str',
+            'phq_score': 'int64',
+            'depression_severity': 'str',
+            'depressiveness': 'str',
+            'gad_score': 'int64',
+            'anxiety_severity': 'str',
+            'epworth_score': 'int64'
+        })
+        print("Initial transformations completed.")
 
-df = df.astype({
-    'id': 'int64',
-    'school_year': 'int64',
-    'age': 'int64',
-    'bmi': 'float',
-    'who_bmi': 'str',
-    'phq_score': 'int64',
-    'depression_severity': 'str',
-    'depressiveness': 'str',
-    'gad_score': 'int64',
-    'anxiety_severity': 'str',
-    'epworth_score': 'int64'
-})
+    def drop_na_columns(self):
+        """Remove rows with NA in critical independent columns."""
+        self.df = self.df.dropna(subset=['suicidal', 'anxiety_diagnosis', 'anxiety_treatment', 
+                                         'depression_diagnosis', 'depression_treatment'])
+        print("Dropped rows with NA in critical independent columns.")
 
-# 3. Remove rows with NA in critical independent columns
-df = df.dropna(subset=['suicidal', 'anxiety_diagnosis', 'anxiety_treatment', 
-                       'depression_diagnosis', 'depression_treatment'])
+    def calculate_medians(self):
+        """Calculate median values for key columns."""
+        self.median_bmi = self.df['bmi'].median()
+        self.median_phq = self.df['phq_score'].median()
+        self.median_epworth = self.df['epworth_score'].median()
+        self.median_gad = self.df['gad_score'].median()
+        print("Medians calculated.")
 
-# 4. Calculate median values for key columns
-median_bmi = df['bmi'].median()
-median_phq = df['phq_score'].median()
-median_epworth = df['epworth_score'].median()
-median_gad = df['gad_score'].median()
+    def clean_bmi_column(self):
+        """Clean the 'bmi' column by replacing 0 values with the median."""
+        self.df['bmi'] = self.df['bmi'].replace(0, self.median_bmi)
+        print("BMI column cleaned.")
 
-# 5. Clean the 'bmi' column by replacing 0 values with the median
-df['bmi'] = df['bmi'].replace(0, median_bmi)
+    def update_who_bmi(self):
+        """Update the 'who_bmi' column based on 'bmi' values."""
+        def calculate_who_bmi(bmi):
+            if bmi < 18.4:
+                return "Underweight"
+            elif bmi < 24.9:
+                return "Normal"
+            elif bmi < 29.9:
+                return "Overweight"
+            elif bmi < 34.9:
+                return "Class I Obesity"
+            elif bmi < 40:
+                return "Class II Obesity"
+            elif bmi > 40:
+                return "Class III Obesity"
+            else:
+                return "NA"
 
-# 6. Update the 'who_bmi' column based on 'bmi' values
-def calculate_who_bmi(bmi):
-    if bmi < 18.4:
-        return "Underweight"
-    elif bmi < 24.9:
-        return "Normal"
-    elif bmi < 29.9:
-        return "Overweight"
-    elif bmi < 34.9:
-        return "Class I Obesity"
-    elif bmi < 40:
-        return "Class II Obesity"
-    elif bmi > 40:
-        return "Class III Obesity"
-    else:
-        return "NA"
+        self.df['who_bmi'] = self.df['bmi'].apply(calculate_who_bmi)
+        print("WHO BMI column updated.")
 
-df['who_bmi'] = df['bmi'].apply(calculate_who_bmi)
+    def clean_epworth_score(self):
+        """Clean the 'epworth_score' column by replacing values < 0 or > 27 with the median."""
+        self.df['epworth_score'] = self.df['epworth_score'].apply(lambda x: self.median_epworth if x < 0 or x > 27 else x)
+        print("Epworth score column cleaned.")
 
-# 7. Clean the 'epworth_score' column by replacing values < 0 or > 27 with the median
-df['epworth_score'] = df['epworth_score'].apply(lambda x: median_epworth if x < 0 or x > 27 else x)
+    def update_sleepiness(self):
+        """Update the 'sleepiness' column based on 'epworth_score'."""
+        self.df['sleepiness'] = self.df['epworth_score'] > 9
+        print("Sleepiness column updated.")
 
-# 8. Update the 'sleepiness' column based on 'epworth_score'
-df['sleepiness'] = df['epworth_score'] > 9
+    def clean_gad_related_columns(self):
+        """Clean the 'gad_score' related columns."""
+        def calculate_anxiety_severity(gad_score):
+            if gad_score < 4:
+                return "None-minimal"
+            elif gad_score < 9:
+                return "Mild"
+            elif gad_score < 14:
+                return "Moderate"
+            elif gad_score < 21:
+                return "Severe"
+            else:
+                return "NA"
 
-# 9. Clean the 'gad_score' related columns
-def calculate_anxiety_severity(gad_score):
-    if gad_score < 4:
-        return "None-minimal"
-    elif gad_score < 9:
-        return "Mild"
-    elif gad_score < 14:
-        return "Moderate"
-    elif gad_score < 21:
-        return "Severe"
-    else:
-        return "NA"
+        self.df['anxiety_severity'] = self.df['gad_score'].apply(calculate_anxiety_severity)
+        self.df['anxiousness'] = self.df['gad_score'] > 9
+        print("GAD-related columns cleaned.")
 
-df['anxiety_severity'] = df['gad_score'].apply(calculate_anxiety_severity)
-df['anxiousness'] = df['gad_score'] > 9
+    def clean_phq_related_columns(self):
+        """Clean the 'phq_score' related columns."""
+        self.df['phq_score'] = self.df.apply(lambda row: self.median_phq if row['phq_score'] == 0 and row['depression_severity'] == "NA" else row['phq_score'], axis=1)
 
-# 10. Clean the 'phq_score' related columns
-df['phq_score'] = df.apply(lambda row: median_phq if row['phq_score'] == 0 and row['depression_severity'] == "NA" else row['phq_score'], axis=1)
+        def calculate_depression_severity(phq_score):
+            if phq_score < 4:
+                return "None-minimal"
+            elif phq_score < 9:
+                return "Mild"
+            elif phq_score < 14:
+                return "Moderate"
+            elif phq_score < 19:
+                return "Moderately severe"
+            elif phq_score < 27:
+                return "Severe"
+            else:
+                return "NA"
 
-def calculate_depression_severity(phq_score):
-    if phq_score < 4:
-        return "None-minimal"
-    elif phq_score < 9:
-        return "Mild"
-    elif phq_score < 14:
-        return "Moderate"
-    elif phq_score < 19:
-        return "Moderately severe"
-    elif phq_score < 27:
-        return "Severe"
-    else:
-        return "NA"
+        self.df['depression_severity'] = self.df['phq_score'].apply(calculate_depression_severity)
 
-df['depression_severity'] = df['phq_score'].apply(calculate_depression_severity)
+        self.df['depressiveness'] = self.df.apply(lambda row: "TRUE" if row['phq_score'] < 9 and row['suicidal'] == "TRUE" else ("TRUE" if row['phq_score'] > 9 else "FALSE"), axis=1)
+        print("PHQ-related columns cleaned.")
 
-df['depressiveness'] = df.apply(lambda row: "TRUE" if row['phq_score'] < 9 and row['suicidal'] == "TRUE" else ("TRUE" if row['phq_score'] > 9 else "FALSE"), axis=1)
+    def reorder_columns(self):
+        """Reorder the columns in the DataFrame."""
+        self.df = self.df[['id', 'school_year', 'age', 'gender', 'bmi', 'who_bmi', 'phq_score', 
+                           'depression_severity', 'depressiveness', 'suicidal', 
+                           'depression_diagnosis', 'depression_treatment', 'gad_score', 
+                           'anxiety_severity', 'anxiousness', 'anxiety_diagnosis', 
+                           'anxiety_treatment', 'epworth_score', 'sleepiness']]
+        print("Columns reordered.")
 
-# 11. Reorder the columns
-df = df[['id', 'school_year', 'age', 'gender', 'bmi', 'who_bmi', 'phq_score', 
-         'depression_severity', 'depressiveness', 'suicidal', 
-         'depression_diagnosis', 'depression_treatment', 'gad_score', 
-         'anxiety_severity', 'anxiousness', 'anxiety_diagnosis', 
-         'anxiety_treatment', 'epworth_score', 'sleepiness']]
+    def final_type_conversions(self):
+        """Perform final type conversions to ensure correct data types."""
+        self.df = self.df.astype({
+            'id': 'int64',
+            'school_year': 'int64',
+            'age': 'int64',
+            'bmi': 'float',
+            'who_bmi': 'str',
+            'phq_score': 'int64',
+            'depression_severity': 'str',
+            'depressiveness': 'str',
+            'gad_score': 'int64',
+            'anxiety_severity': 'str',
+            'epworth_score': 'int64',
+            'sleepiness': 'bool',
+            'anxiety_treatment': 'bool',
+            'anxiety_diagnosis': 'bool',
+            'anxiousness': 'bool',
+            'depression_treatment': 'bool',
+            'depression_diagnosis': 'bool',
+            'suicidal': 'bool'
+        })
+        print("Final type conversions done.")
 
-# 12. Final type conversions
-df = df.astype({
-    'id': 'int64',
-    'school_year': 'int64',
-    'age': 'int64',
-    'bmi': 'float',
-    'who_bmi': 'str',
-    'phq_score': 'int64',
-    'depression_severity': 'str',
-    'depressiveness': 'str',
-    'gad_score': 'int64',
-    'anxiety_severity': 'str',
-    'epworth_score': 'int64',
-    'sleepiness': 'bool',
-    'anxiety_treatment': 'bool',
-    'anxiety_diagnosis': 'bool',
-    'anxiousness': 'bool',
-    'depression_treatment': 'bool',
-    'depression_diagnosis': 'bool',
-    'suicidal': 'bool'
-})
+    def save_cleaned_data(self):
+        """Save the cleaned DataFrame to a new CSV file."""
+        self.df.to_csv(self.output_path, index=False)
+        print(f"Cleaned data saved to {self.output_path}.")
 
-# Optional: Save the cleaned DataFrame to a new CSV file
-output_path = "data/cleaned_data.csv"
-df.to_csv(output_path, index=False)
+    def clean_dataset(self):
+        """Execute the full data cleaning process."""
+        self.load_data()
+        self.initial_transformations()
+        self.drop_na_columns()
+        self.calculate_medians()
+        self.clean_bmi_column()
+        self.update_who_bmi()
+        self.clean_epworth_score()
+        self.update_sleepiness()
+        self.clean_gad_related_columns()
+        self.clean_phq_related_columns()
+        self.reorder_columns()
+        self.final_type_conversions()
+        self.save_cleaned_data()
