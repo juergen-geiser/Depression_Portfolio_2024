@@ -16,7 +16,7 @@ class WelcomeScreen(QDialog):
         Initialize the WelcomeScreen with the UI from layer_welcome and connect the button to transition to Depressiveness screen.
         """
         super(WelcomeScreen, self).__init__()
-        self.setWindowIcon(QIcon('img/amiwell-icon.png'))  # Set the window icon here
+        #self.setWindowIcon(QIcon('../frontend/img/amiwell-icon.png'))  # Set the window icon here
         self.setWindowTitle("amiwell - Welcome")  # Set the window title here
         self.ui = Ui_layer_1()
         self.ui.setupUi(self)
@@ -211,6 +211,22 @@ class Anxiety(QDialog):
             self.ui.outputField.setText(f"Predicted Class: Anxious, Probability = {prob_class_1[0]:.2f}") 
 
 def updateWindowTitle(index):
+    """
+    Update the window title based on the current index of the QStackedWidget.
+
+    This function sets the window title to reflect the currently visible screen
+    in the QStackedWidget. The title changes according to the index of the
+    screen being displayed.
+
+    Parameters:
+    index (int): The index of the currently displayed widget in the QStackedWidget.
+                 - 0 for the Welcome screen
+                 - 1 for the Depressiveness screen
+                 - 2 for the Anxiety screen
+
+    Returns:
+    None
+    """
     if index == 0:  # Welcome screen
         widget.setWindowTitle("amiwell - Welcome")
     elif index == 1:  # Depressiveness screen
@@ -218,21 +234,25 @@ def updateWindowTitle(index):
     elif index == 2:  # Anxiety screen
         widget.setWindowTitle("amiwell - Anxiety")
                 
-#main
-# main
-app = QApplication(sys.argv)
-app.setWindowIcon(QIcon('img/amiwell-icon.png'))  # Optional: Set a global icon for the entire application
-welcome = WelcomeScreen()
-widget = QtWidgets.QStackedWidget()
 
-# Setze den Titel für das QStackedWidget
-widget.setWindowIcon(QIcon('img/amiwell-icon.png'))  # Set icon for the widget
+# main application
+app = QApplication(sys.argv)
+
+# setting a global icon
+app.setWindowIcon(QIcon('../frontend/img/amiwell-icon.png'))  # Optional: Set a global icon for the entire application
+
+# Create the welcomeScreen
+welcome = WelcomeScreen()
+
+# Create and configure the QStackedWidget
+widget = QtWidgets.QStackedWidget()
+#widget.setWindowIcon(QIcon('../frontend/img/amiwell-icon.png'))  # Set icon for the widget
 widget.setWindowTitle("amiwell - Welcome")  # Set title for the widget
 widget.addWidget(welcome)
 widget.setFixedHeight(572)
 widget.setFixedWidth(792)
 
-# Verbinde das Signal zur Aktualisierung des Titels
+# Link the signal to update the title
 widget.currentChanged.connect(updateWindowTitle)
 
 widget.show()

@@ -48,9 +48,12 @@ class Ui_layer_3(object):
         # Create a text area for output
         self.outputField = QtWidgets.QTextEdit(layer_3)
         self.outputField.setGeometry(QtCore.QRect(50, 390, 651, 121))
-        self.outputField.setStyleSheet("background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(202, 202, 202, 255), stop:1 rgba(255, 255, 255, 255));\n"
-                                       "border-radius: 10.0px;\n"
-                                       "")
+        self.outputField.setStyleSheet("""
+                                       background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(202, 202, 202, 255), stop:1 rgba(255, 255, 255, 255));
+                                       border-radius: 10.0px;
+                                       font: 14pt "MS Shell Dlg 2";
+                                       """)
+        self.outputField.setPlainText("Here comes the prediction...")
         self.outputField.setObjectName("outputField")
         
         # Create the headline label 
@@ -136,11 +139,6 @@ class Ui_layer_3(object):
         _translate = QtCore.QCoreApplication.translate
         
         layer_3.setWindowTitle(_translate("layer_3", "Form"))
-                
-        self.outputField.setHtml(_translate("layer_3", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/EC-html40/strict.dtd\">\n""<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-                                            "p, li { white-space: pre-wrap; }\n"
-                                            "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-                                            "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Here comes the prediction...</p></body></html>"))
         
         self.headlineDepressiveness.setText(_translate("layer_3", "Please insert the values of your dataset"))
         self.pushButton_predict.setText(_translate("layer_3", "Predict"))
