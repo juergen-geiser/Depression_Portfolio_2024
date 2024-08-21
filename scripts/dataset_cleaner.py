@@ -105,7 +105,7 @@ class DepressionAnxietyDataCleaner:
                 return "Class I Obesity"
             elif bmi < 40:
                 return "Class II Obesity"
-            elif bmi > 40:
+            elif bmi >= 40:
                 return "Class III Obesity"
             else:
                 return "NA"
@@ -118,7 +118,7 @@ class DepressionAnxietyDataCleaner:
         Cleans the 'epworth_score' column by replacing values that are less than 0 or greater than 27 
         with the median value. This ensures that all scores are within the valid range.
         """
-        self.df['epworth_score'] = self.df['epworth_score'].apply(lambda x: self.median_epworth if x < 0 or x > 27 else x)
+        self.df['epworth_score'] = self.df['epworth_score'].apply(lambda x: self.median_epworth if x < 0 or x > 24 else x)
         print("Epworth score column cleaned.")
 
     def update_sleepiness(self):
