@@ -113,13 +113,31 @@ class DepressionAnxietyDataCleaner:
         self.df['who_bmi'] = self.df['bmi'].apply(calculate_who_bmi)
         print("WHO BMI column updated.")
 
-    def clean_epworth_score(self):
-        """
-        Cleans the 'epworth_score' column by replacing values that are less than 0 or greater than 27 
-        with the median value. This ensures that all scores are within the valid range.
-        """
-        self.df['epworth_score'] = self.df['epworth_score'].apply(lambda x: self.median_epworth if x < 0 or x > 24 else x)
-        print("Epworth score column cleaned.")
+def clean_epworth_score(self):
+    """
+    Cleans the 'epworth_score' column based on the following rules:
+    - If the score is less than 0, replace it with the median.
+    - If the score is greater than 24 and 'sleepiness' is TRUE, set it to 17.
+    - If the score is greater than 24 and 'sleepiness' is not TRUE, replace it with the median.
+    - Otherwise, keep the original score.
+    """
+    def adjust_epworth_score(row):
+        if row['epworth_score'] < 0:
+            return self.median_epworth
+        elif row['epworth_score'] > 24:
+            if row['sleepiness']:
+                return 17
+            else:
+                return self.median_epworth
+        else:
+            return row['epworth_score']
+
+    self.df['epworth_score'] = self.df.apply(adjust_epworth_score, axis=1)
+    print("Epworth score column cleaned.")
+
+
+    self.df['epworth_score'] = self.df.apply(adjust_epworth_score, axis=1)
+    print("Epworth score column cleaned.")
 
     def update_sleepiness(self):
         """
