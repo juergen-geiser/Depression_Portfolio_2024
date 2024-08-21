@@ -2,6 +2,8 @@ import sys
 import pickle
 import pandas as pd
 from PyQt5 import QtWidgets
+from PIL import Image
+from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPushButton, QTextEdit, QDialog, QWidget
 from layer_welcome import Ui_layer_1
@@ -14,6 +16,8 @@ class WelcomeScreen(QDialog):
         Initialize the WelcomeScreen with the UI from layer_welcome and connect the button to transition to Depressiveness screen.
         """
         super(WelcomeScreen, self).__init__()
+        self.setWindowIcon(QIcon('img/amiwell-icon.png'))  # Set the window icon here
+        self.setWindowTitle("amiwell - Welcome")  # Set the window title here
         self.ui = Ui_layer_1()
         self.ui.setupUi(self)
         self.ui.ButtonToDepressiveness.clicked.connect(self.goToDepressiveness)
@@ -26,6 +30,7 @@ class WelcomeScreen(QDialog):
         depressive = Depressiveness()
         widget.addWidget(depressive)
         widget.setCurrentIndex(widget.currentIndex() +1)
+        updateWindowTitle(widget.currentIndex())  # Update the title
 
     def goToAnxiety(self):
         """
@@ -34,6 +39,7 @@ class WelcomeScreen(QDialog):
         anxious = Anxiety()
         widget.addWidget(anxious)
         widget.setCurrentIndex(widget.currentIndex() +2)
+        updateWindowTitle(widget.currentIndex())  # Update the title
 
 class Depressiveness(QDialog):
     def __init__(self):
@@ -120,9 +126,9 @@ class Depressiveness(QDialog):
         
         # Print the predicted class and corresponding probability
         if predicted_class == 0:
-            self.ui.outputField.setText(f"Predicted Class: Not Depressive, Probability = {prob_class_0[0]:.2f}")
+            self.ui.outputField.setText(f"Our analysis suggests that depression is unlikely. \nHowever, if you have concerns, it's always best to discuss them with a professional. \nProbability that our prediction is correct is at {prob_class_0[0]* 100:.2f}%")
         else:
-            self.ui.outputField.setText(f"Predicted Class: Depressive, Probability = {prob_class_1[0]:.2f}") 
+            self.ui.outputField.setText(f"Our analysis suggests a higher likelihood of depression. \nWe recommend seeking professional advice for a more accurate diagnosis. \nProbability that our prediction is correct is at {prob_class_1[0]* 100:.2f}%") 
         
 class Anxiety(QDialog):
     def __init__(self):
@@ -206,23 +212,58 @@ class Anxiety(QDialog):
         
         # Print the predicted class and corresponding probability
         if predicted_class == 0:
-            self.ui.outputField.setText(f"Predicted Class: Non-Anxious, Probability = {prob_class_0[0]:.2f}")
+            self.ui.outputField.setText(f"Our analysis suggests that anxiety is unlikely. \nHowever, if you have concerns, it's always best to discuss them with a professional. \nProbability that our prediction is correct is at {prob_class_0[0]* 100:.2f}%")
         else:
-            self.ui.outputField.setText(f"Predicted Class: Anxious, Probability = {prob_class_1[0]:.2f}") 
-        
-        
-        
-        
-#main
+            self.ui.outputField.setText(f"Our analysis suggests a higher likelihood of anxiety. \nWe recommend seeking professional advice for a more accurate diagnosis. \nProbability that our prediction is correct is at {prob_class_1[0]* 100:.2f}%") 
+
+def updateWindowTitle(index):
+    """
+    Update the window title based on the current index of the QStackedWidget.
+
+    This function sets the window title to reflect the currently visible screen
+    in the QStackedWidget. The title changes according to the index of the
+    screen being displayed.
+
+    Parameters:
+    index (int): The index of the currently displayed widget in the QStackedWidget.
+                 - 0 for the Welcome screen
+                 - 1 for the Depressiveness screen
+                 - 2 for the Anxiety screen
+
+    Returns:
+    None
+    """
+    if index == 0:  # Welcome screen
+        widget.setWindowTitle("amiwell - Welcome")
+    elif index == 1:  # Depressiveness screen
+        widget.setWindowTitle("amiwell - Depressiveness")
+    elif index == 2:  # Anxiety screen
+        widget.setWindowTitle("amiwell - Anxiety")
+                
+
+# main application
 app = QApplication(sys.argv)
+
+# setting a global icon
+app.setWindowIcon(QIcon('img/amiwell-icon.png'))  # Optional: Set a global icon for the entire application
+
+# Create the welcomeScreen
 welcome = WelcomeScreen()
+
+# Create and configure the QStackedWidget
 widget = QtWidgets.QStackedWidget()
+widget.setWindowIcon(QIcon('img/amiwell-icon.png'))  # Set icon for the widget
+widget.setWindowTitle("amiwell - Welcome")  # Set title for the widget
 widget.addWidget(welcome)
 widget.setFixedHeight(572)
 widget.setFixedWidth(792)
+
+# Link the signal to update the title
+widget.currentChanged.connect(updateWindowTitle)
+
 widget.show()
 
 try:
     sys.exit(app.exec_())
 except:
-    print('Existing')
+    print('Exiting')
