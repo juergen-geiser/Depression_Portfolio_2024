@@ -49,11 +49,17 @@ class Depressiveness(QDialog):
         self.ui.ButtonToWelcome.clicked.connect(self.goToWelcome)
         self.ui.pushButton_predict.clicked.connect(self.predict)
         
-        # loading the model
+        # Load the model
+        self.load_model()
+        
+    def load_model(self):
+        """
+        Load the model and its associated feature columns and target columns.
+        """
         with open('./models/best_model_depression.pkl', 'rb') as file:
-            self.model = pickle.load(file)  # Load the models first (as they were saved first)
-            self.target_col = pickle.load(file)   # Load status_names second
-            self.feature_cols = pickle.load(file)    # Load target_cols third
+            self.model = pickle.load(file)  # Load the model
+            self.target_col = pickle.load(file)   # Load status_names
+            self.feature_cols = pickle.load(file)    # Load feature_cols
         
     def goToWelcome(self):
         """
