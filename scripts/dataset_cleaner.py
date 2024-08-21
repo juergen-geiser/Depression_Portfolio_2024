@@ -117,23 +117,29 @@ def clean_epworth_score(self):
     """
     Cleans the 'epworth_score' column based on the following rules:
     - If the score is less than 0, replace it with the median.
-    - If the score is greater than 24 and 'sleepiness' is TRUE, set it to 17.
+    - If the score is 31 or 32 and 'sleepiness' is TRUE, set it to the dynamic average of the closed interval [10, 24] where sleepiness = TRUE.
     - If the score is greater than 24 and 'sleepiness' is not TRUE, replace it with the median.
     - Otherwise, keep the original score.
     """
+
+    # Calculate the dynamic average of the closed interval [10, 24] where sleepiness = TRUE
+    interval_avg = self.df[(self.df['epworth_score'] >= 10) & 
+                           (self.df['epworth_score'] <= 24) & 
+                           (self.df['sleepiness'] == True)]['epworth_score'].mean()
+
     def adjust_epworth_score(row):
         if row['epworth_score'] < 0:
             return self.median_epworth
-        elif row['epworth_score'] > 24:
-            if row['sleepiness']:
-                return 17
-            else:
-                return self.median_epworth
+        elif row['epworth_score'] in [31, 32] and row['sleepiness']:
+            return interval_avg  # Dynamically calculated average value
+        elif row['epworth_score'] > 24 and not row['sleepiness']:
+            return self.median_epworth
         else:
             return row['epworth_score']
 
     self.df['epworth_score'] = self.df.apply(adjust_epworth_score, axis=1)
     print("Epworth score column cleaned.")
+
 
 
     self.df['epworth_score'] = self.df.apply(adjust_epworth_score, axis=1)
