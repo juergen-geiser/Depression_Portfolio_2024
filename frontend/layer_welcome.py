@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class Ui_layer_1(object):
+class Welcome_Screen(object):
     def setupUi(self, layer_1):
         """
         Set up the user interface for the Welcome screen.
@@ -105,7 +105,7 @@ def main():
     import sys
     app = QtWidgets.QApplication(sys.argv)
     layer_1 = QtWidgets.QMainWindow() 
-    ui = Ui_layer_1()
+    ui = Welcome_Screen()
     ui.setupUi(layer_1)
     layer_1.show()
     sys.exit(app.exec_())
