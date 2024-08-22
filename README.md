@@ -28,7 +28,6 @@ This notebook focuses on a complex classification of the depressiveness with all
 2. **interface_eda_model_depression_ML_GUI.ipynb**: 
 This notebook focuses on an interface between the ML part given in the eda_model_depression.ipynb file and the GUI-interface. The file: model_depression.pkl has to be loaded, here are stored all the best model with the target "depressiveness" and we also gave the target and the names of the features, that could be used as a first multiple predictve tool. 
 
-
 3. **method_model_depression.ipynb**: 
 This notebook focuses on all possible models, e.g., decision tree, KNN, logistic regression, random forest, which are tested, we apply the results of the EDA in previous notebooks and concentrate on the important features. We could derive and optimal model, which is stored in best_model_depression.pkl, this can be used for the interface GUI or for the notebook interface_method_model_depression_ML_GUI.ipynb.
 
@@ -42,12 +41,43 @@ This notebook focuses on all possible models, e.g., decision tree, KNN, logistic
 This notebook focuses on an interface between the ML part given in the method_model_anxiousness.ipynb file and the GUI-interface. The file: best_model_anxiousness.pkl has to be loaded, here are stored all the best model with the target "depressiveness" and we also gave the target and the names of the features, that could be used as a first multiple predictve tool. 
 
 
+## Frontend
 
+The files essentially define an application that allows the user to input data and receive predictions about the risk of depression and anxiety based on a predefined model. The application offers a simple user interface with clearly structured screens for different prediction purposes.
 
+### 1. WelcomeScreen
+This class creates the welcome screen of the application. The screen displays the title and description and offers two buttons that direct the user either to the depression prediction or the anxiety prediction screen.<br>
+**Important Methods:**
+- goToDepressiveness: Switches to the depression prediction screen.
+- goToAnxiety: Switches to the anxiety prediction screen.
 
+### 2. Depressiveness
+This class represents the depression prediction screen. It loads a trained model and allows the user to input data and receive a prediction about the risk of depression.<br>
+**Important Methods:**
+- load_model: Loads the model and the required columns from a file.
+- getInputs: Collects user inputs, calculates the BMI, and prepares the inputs for the model prediction.
+- predict: Performs the prediction and displays the result as well as the probability.
 
+### 3. Anxiety
+This class represents the anxiety prediction screen. It works similarly to the depression screen but is specialized in anxiety.<br>
+**Important Methods:**
+- getInputs: Collects user inputs, calculates the BMI, and prepares the inputs for the model prediction.
+- predict: Performs the prediction and displays the result as well as the probability.
 
+### 4. updateWindowTitle
+This function updates the window title based on the current screen being displayed (welcome, depression, or anxiety).
 
+### 5. Welcome_layer
+This class defines the layout and user interface of the welcome screen. It creates widgets such as labels and buttons and arranges them on the screen.
+
+### 6. Depression_layer
+This class defines the layout and user interface of the depression prediction screen. It includes fields for data input and buttons to make a prediction.
+
+### 7. Anxiety_layer
+This class defines the layout and user interface of the anxiety prediction screen. It also includes fields for data input and buttons to make a prediction.
+
+### 8. Main Application Code
+This is the main code of the application, which displays the welcome screen and starts the application. It also uses the QStackedWidget to switch between the different screens.
 
 ## Installation and Setup with requirements.txt
 
@@ -66,10 +96,6 @@ cd your-repository
 pip install -r requirements.txt
 ```
 4. Download the modified dataset and place it in the project directory. The original dataset can be acquired from the link [Kaggle: Depression and anxiety data ](https://www.kaggle.com/datasets/shahzadahmad0402/depression-and-anxiety-data) and save it to the Directory: data
-
-
-
-
 
 ## Installation and Setup using conda and environment.yml
 
