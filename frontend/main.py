@@ -6,9 +6,9 @@ from PIL import Image
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QPushButton, QTextEdit, QDialog, QWidget
-from layer_welcome import Welcome_Screen
-from layer_depressiveness import Depressiveness_Screen
-from layer_anxiety import Anxiety_Screen
+from layer_welcome import Welcome_layer
+from layer_depressiveness import Depressiveness_layer
+from layer_anxiety import Anxiety_layer
 
 class WelcomeScreen(QDialog):
     def __init__(self):
@@ -18,7 +18,7 @@ class WelcomeScreen(QDialog):
         super(WelcomeScreen, self).__init__()
         self.setWindowIcon(QIcon('img/amiwell-icon.png'))  # Set the window icon here
         self.setWindowTitle("amiwell - Welcome")  # Set the window title here
-        self.ui = Welcome_Screen()
+        self.ui = Welcome_layer()
         self.ui.setupUi(self)
         self.ui.ButtonToDepressiveness.clicked.connect(self.goToDepressiveness)
         self.ui.ButtonToAnxiety.clicked.connect(self.goToAnxiety)
@@ -48,7 +48,7 @@ class Depressiveness(QDialog):
         Load the model and its required feature columns and target columns.
         """
         super(Depressiveness, self).__init__()
-        self.ui = Depressiveness_Screen()
+        self.ui = Depressiveness_layer()
         self.ui.setupUi(self)
         
         #linking the buttons
@@ -137,7 +137,7 @@ class Anxiety(QDialog):
         Load the model and its required feature columns and target columns.
         """
         super(Anxiety, self).__init__()
-        self.ui = Anxiety_Screen()
+        self.ui = Anxiety_layer()
         self.ui.setupUi(self)
         
         #linking the buttons

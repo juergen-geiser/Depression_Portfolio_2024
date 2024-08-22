@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import numpy as np
 
-class Anxiety_Screen(object):
+class Anxiety_layer(object):
     def setupUi(self, layer_3):
         """
         Set up the user interface for the 'layer_3' window.
@@ -149,7 +149,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     layer_3 = QtWidgets.QWidget()
-    ui = Anxiety_Screen()
+    ui = Anxiety_layer()
     ui.setupUi(layer_3)
     layer_3.show()
     sys.exit(app.exec_())
